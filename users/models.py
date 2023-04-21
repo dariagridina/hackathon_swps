@@ -40,7 +40,7 @@ class User(AbstractUser):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     bio = models.TextField(blank=True)
     location = models.CharField(max_length=30, blank=True)
     linkedin_url = models.URLField(blank=True)
@@ -51,8 +51,8 @@ class UserProfile(models.Model):
 
 
 class UserSkill(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    skill = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="skills", related_query_name="skill")
+    name = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.user.email} - {self.skill}"
+        return f"{self.user.email} - {self.name}"
