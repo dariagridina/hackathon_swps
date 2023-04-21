@@ -49,3 +49,10 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.email
 
+
+class UserSkill(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    skill = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.user.email} - {self.skill}"
