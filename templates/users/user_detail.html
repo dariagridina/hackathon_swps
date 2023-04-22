@@ -1,40 +1,47 @@
 {% extends "base.html" %}
-{% load static rating_helpers %}
+{% load rating_helpers %}
 
 {% block content %}
   <section class="container mb-5">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <img src="{{ user.profile.image.url }}" alt="Profile Image" class="img-thumbnail">
       </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <h1>{{ user.get_full_name }}</h1>
-      {% if avg_rating %}
-        <p class="h3 mb-3">
-          {% for i in "12345" %}
-            <i class="bx {{ avg_rating|rating_star_class:i|get_digit:1 }} text-warning"></i>
-          {% endfor %}
-          ({{ avg_rating|floatformat:1 }})
-        </p>
-      {% endif %}
-
+        {% if avg_rating %}
+          <p class="h3 mb-3">
+            {% for i in "12345" %}
+              <i class="bx {{ avg_rating|rating_star_class:i|get_digit:1 }} text-warning"></i>
+            {% endfor %}
+            ({{ avg_rating|floatformat:1 }})
+          </p>
+        {% endif %}
         <p class="fs-lg"><i class='bx bx-map' ></i> {{ user.profile.location }}</p>
 
         <p class="fs-lg">{{ user.profile.bio }}</p>
-        <div class="mb-3">
-          {% if user.profile.linkedin_url %}
-            <a href="{{ user.profile.linkedin_url }}" target="_blank" class="btn btn-primary">LinkedIn</a>
-          {% endif %}
-          {% if user.profile.github_url %}
-            <a href="{{ user.profile.github_url }}" target="_blank" class="btn btn-dark">GitHub</a>
-          {% endif %}
-          <a href="CV.pdf" download class="btn btn-secondary">Download CV</a>
+
+        {% for skill in user.skills.all %}
+          <span class="badge bg-success fs-lg me-2 mb-2">{{ skill.name }}</span>
+        {% endfor %}
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            {% if user.profile.linkedin_url %}
+              <a href="{{ user.profile.linkedin_url }}" target="_blank" class="btn btn-secondary btn-linkedin w-100 mb-2">LinkedIn</a>
+            {% endif %}
+            {% if user.profile.github_url %}
+              <a href="{{ user.profile.github_url }}" target="_blank" class="btn btn-secondary btn-github w-100 mb-2">GitHub</a>
+            {% endif %}
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary w-100">Message</a>
+          </div>
         </div>
-        <button class="btn btn-success mb-3">Contact User</button>
       </div>
     </div>
   </section>
-
 
   {% if user.project_roles.all %}
     <section class="container">
@@ -90,21 +97,5 @@
         </div>
       {% endfor %}
     </section>
-  {% else %}
-    <p>User has not worked on any projects yet.</p>
   {% endif %}
-  </section>
-{% endblock %}
-
-
-{% block vendor_css %}
-  <link rel="stylesheet" media="screen" href="{% static "vendor/boxicons/css/boxicons.min.css" %}">
-  <link rel="stylesheet" href="{% static "vendor/swiper/swiper-bundle.min.css" %}">
-{% endblock %}
-
-
-{% block vendor_js %}
-  <script src="{% static "vendor/bootstrap/bootstrap.bundle.min.js" %}"></script>
-  <script src="{% static "vendor/smoot-scroll/smooth-scroll.polyfills.min.js" %}"></script>
-  <script src="{% static "vendor/swiper/swiper-bundle.min.js" %}"></script>
 {% endblock %}

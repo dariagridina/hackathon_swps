@@ -1,3 +1,6 @@
+import itertools
+import random
+
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management.base import BaseCommand
@@ -5,12 +8,56 @@ from django.core.management.base import BaseCommand
 from projects.models import Project, ProjectRole, ProjectRoleReview
 from users.models import User, UserProfile, UserSkill
 
-
 people_images = settings.BASE_DIR / "main" / "code_fixtures" / "images" / "people"
 
 
 class Command(BaseCommand):
     help = "Loads code fixtures"
+
+    PROJECT_MANAGERS = []
+    DEVELOPERS = []
+    DESIGNERS = []
+    MARKETERS = []
+    REVIEWS = [
+        [5, "{name} has shown exceptional dedication to this project, consistently going above and beyond to deliver high-quality results."],
+        [5, "{name}'s keen eye for detail and innovative ideas have truly elevated the project to new heights."],
+        [5, "Working with {name} has been a phenomenal experience; their commitment to teamwork and clear communication has made the project a great success."],
+        [5, "The level of expertise and professionalism {name} brings to the project is simply outstanding, making them a true asset to the team."],
+        [5, "I am continually impressed by {name}'s ability to adapt and overcome any challenge that arises, ensuring the project's success."],
+        [5, "{name}'s passion for the project is contagious, inspiring the entire team to strive for excellence."],
+        [5, "The time and effort {name} has put into the project is truly remarkable, resulting in a top-notch final product."],
+        [5, "Thanks to {name}'s thorough research and in-depth understanding of the subject matter, the project has reached new levels of quality and impact."],
+        [5, "{name} has been an essential team player, providing valuable insights and helping to create a positive and collaborative work environment."],
+        [5, "With {name}'s exceptional organizational skills and steadfast work ethic, the project has been completed on time and with great success."],
+        [5,
+         "The exceptional dedication shown throughout this project has consistently led to high-quality results and a fantastic final product."],
+        [5,
+         "Innovative ideas and a keen eye for detail have truly elevated the project, setting a new standard for future work."],
+        [5,
+         "The teamwork and clear communication demonstrated during the project made it a great success and a pleasure to work on."],
+        [5,
+         "The level of expertise and professionalism exhibited throughout the project has been outstanding, making it a truly remarkable experience."],
+        [5,
+         "A contagious passion for the project inspired the entire team to strive for excellence, resulting in a top-notch final product."],
+        [4,
+         "{name}'s work on the project has been solid, with a few minor areas for improvement that could take their contributions to the next level."],
+        [4,
+         "The project was successful, but a bit more attention to detail could have made it even better. {name} still did a commendable job overall."],
+        [4,
+         "While the project was well-executed, there were a few instances where clearer communication would have helped streamline the process."],
+        [4,
+         "{name} displayed good organization and contributed effectively, but there is room for growth in terms of collaboration with the team."],
+        [4,
+         "The final product was of good quality, but with a bit more creativity and innovation, it could have truly stood out from the competition."],
+        [2,
+         "{name}'s work on the project was below expectations, with numerous errors and a lack of attention to detail that impacted the final result."],
+        [2,
+         "The work was completed, but the final product was unimpressive and failed to meet the necessary standards for quality and impact."],
+        [1,
+         "The project was severely lacking in organization, communication, and quality, resulting in a final product that was far below expectations and unacceptable."],
+        [1,
+         "Despite the time and resources invested, the project failed to meet even the most basic requirements, with numerous errors and a complete lack of attention to detail."]
+    ]
 
     def handle(self, *args, **options):
         self.load_fixtures()
@@ -19,263 +66,278 @@ class Command(BaseCommand):
         self.setup_users()
         self.setup_projects()
 
-    def setup_users(self):
-        User.objects.all().delete()
-        admin = User.objects.create_superuser(
-            email="admin@example.com",
-            password="admin",
-            first_name="Jane",
-            last_name="Doe",
+    def create_user(self, first_name, last_name, bio, location, skills, linkedin=False, github=False):
+        user_count = User.objects.count()
+        user = User.objects.create_user(
+            email=f"user{user_count}@mail.com",
+            password="user",
+            first_name=first_name,
+            last_name=last_name,
         )
         profile = UserProfile.objects.create(
-            user=admin,
-            image="",
-            bio="I am a project manager with 10 years of experience in the IT industry. I have a strong background in "
-            "software development and project management. I am passionate about building and managing high "
-            "performing teams and delivering successful projects.",
-            location="Warsaw",
-            linkedin_url="https://www.linkedin.com/in/admin/",
-            github_url="https://github.com/admin/",
+            user=user,
+            bio=bio,
+            location=location,
+            linkedin_url=f"https://www.linkedin.com/in/user{user_count}/" if linkedin else "",
+            github_url=f"https://github.com/user{user_count}/" if github else "",
         )
-        with open(people_images / "01.jpg", "rb") as image:
+        with open(people_images / f"{user_count}.jpg", "rb") as image:
             profile.image.save(
-                "admin.jpg",
-                SimpleUploadedFile("admin.jpg", image.read(), content_type="image/jpg"),
+                f"{user_count}.jpg",
+                SimpleUploadedFile(
+                    f"{user_count}.jpg", image.read(), content_type="image/jpg"
+                ),
             )
-        UserSkill.objects.create(
-            user=admin,
-            name="Project Management",
-        )
-        UserSkill.objects.create(
-            user=admin,
-            name="Scrum",
-        )
-        UserSkill.objects.create(
-            user=admin,
-            name="Agile",
-        )
-
-        user1 = User.objects.create_user(
-            email="user1@example.com",
-            password="user1",
-            first_name="John",
-            last_name="Smith",
-        )
-        profile1 = UserProfile.objects.create(
-            user=user1,
-            image="",
-            bio="Hi! I'm a passionate web developer with expertise in React.js and Node.js. With a keen eye for design and "
-            "a strong foundation in programming, I love transforming creative ideas into functional and visually "
-            "appealing web applications. Always eager to learn and stay updated with the latest trends, I strive "
-            "to build user-centric solutions that make a positive impact.",
-            location="Warsaw",
-            linkedin_url="https://www.linkedin.com/in/user1/",
-            github_url="https://github.com/user1/",
-        )
-        with open(people_images / "02.jpg", "rb") as image:
-            profile1.image.save(
-                "user1.jpg",
-                SimpleUploadedFile("user1.jpg", image.read(), content_type="image/jpg"),
+        for skill in skills:
+            UserSkill.objects.create(
+                user=user,
+                name=skill,
             )
 
-        UserSkill.objects.create(
-            user=user1,
-            name="React.js",
-        )
-        UserSkill.objects.create(
-            user=user1,
-            name="Node.js",
-        )
-        UserSkill.objects.create(
-            user=user1,
-            name="HTML",
-        )
-        UserSkill.objects.create(
-            user=user1,
-            name="CSS",
+        return user
+
+    def setup_users(self):
+        User.objects.all().delete()
+        User.objects.create_superuser(
+            email="admin@example.com",
+            password="admin",
         )
 
-        user2 = User.objects.create_user(
-            email="user2@example.com",
-            password="user2",
-            first_name="Sarah",
-            last_name="Connor",
-        )
-        profile2 = UserProfile.objects.create(
-            user=user2,
-            image="",
-            bio="I am a designer with a passion for creating beautiful and functional web applications. I love working "
-            "with a team of talented developers to bring ideas to life. I am always looking for new challenges "
-            "and opportunities to learn and grow.",
-            location="London",
-            linkedin_url="https://www.linkedin.com/in/user2/",
-            github_url="https://github.com/user2/",
-        )
-        with open(people_images / "03.jpg", "rb") as image:
-            profile2.image.save(
-                "user2.jpg",
-                SimpleUploadedFile("user2.jpg", image.read(), content_type="image/jpg"),
-            )
-        UserSkill.objects.create(
-            user=user2,
-            name="Figma",
-        )
-        UserSkill.objects.create(
-            user=user2,
-            name="Adobe XD",
-        )
-        UserSkill.objects.create(
-            user=user2,
-            name="HTML",
+        self.PROJECT_MANAGERS += [
+            self.create_user(
+                first_name="Jane",
+                last_name="Doe",
+                bio="I am a project manager with 10 years of experience in the IT industry. I have a strong background in software development and project management.",
+                location="Warsaw",
+                skills=["Project Management", "Scrum", "Agile"],
+                linkedin=True,
+            ),
+            self.create_user(
+                first_name="Robb",
+                last_name="Stark",
+                bio="I am a strong leader with a passion for project management. I used to work with mobile app development teams and I love working with talented developers.",
+                location="Winterfell",
+                skills=["Project Management"],
+                linkedin=True,
+            ),
+        ]
+
+        self.DEVELOPERS += [
+            self.create_user(
+                first_name="John",
+                last_name="Smith",
+                bio="I'm a front-end developer with expertise in React.js. I love transforming creative ideas into functional and visually appealing web applications.",
+                location="Warsaw",
+                skills=["React.js", "HTML", "CSS"],
+                linkedin=True,
+                github=True,
+            ),
+            self.create_user(
+                first_name="Jessica",
+                last_name="Williams",
+                bio="I am a full-stack developer with 5 years of experience in the IT industry. I build web applications using React.js and Django.",
+                location="London",
+                skills=["React.js", "HTML", "CSS", "Python", "Django"],
+                linkedin=True,
+                github=True,
+            ),
+            self.create_user(
+                first_name="Michael",
+                last_name="Brown",
+                bio="I am a data scientist with 3 years of experience in the IT industry. I have a strong background in data analysis and machine learning.",
+                location="New York",
+                skills=["Python", "Machine Learning", "Data Analysis"],
+                linkedin=True,
+                github=True,
+            ),
+            self.create_user(
+                first_name="James",
+                last_name="Jones",
+                bio="I am a back-end developer with 5 years of experience in the IT industry. I built scalable web applications using Python and Django.",
+                location="London",
+                skills=["Python", "Django", "HTML", "CSS"],
+                linkedin=True,
+                github=True,
+            ),
+            self.create_user(
+                first_name="David",
+                last_name="Black",
+                bio="I am a full-stack developer with 5 years of experience in the IT industry. I have a strong background in web development and graphic design.",
+                location="Barcelona",
+                skills=["React.js", "HTML", "CSS", "Python", "Django"],
+                linkedin=True,
+                github=True,
+            ),
+            self.create_user(
+                first_name="Sarah",
+                last_name="Connor",
+                bio="I am a front-end developer with 5 years of experience in the IT industry. I built multiple web applications using Vue.js and Django.",
+                location="London",
+                skills=["Vue.js", "HTML", "CSS"],
+                linkedin=True,
+                github=True,
+            ),
+        ]
+
+        self.DESIGNERS += [
+            self.create_user(
+                first_name="Jeff",
+                last_name="Snider",
+                bio="I am a designer with a passion for creating beautiful and functional web applications. I love working with a team of talented developers to bring ideas to life.",
+                location="London",
+
+                skills=["Figma", "Adobe XD", "HTML", "CSS"],
+                linkedin=True,
+            ),
+            self.create_user(
+                first_name="Serhio",
+                last_name="Ramos",
+                bio="I am a UI/UX designer with 5 years of experience in the IT industry. I have a strong background in web design and graphic design.",
+                location="Munich",
+                skills=["UI/UX", "Graphic Design", "Adobe Photoshop"],
+                linkedin=True,
+            ),
+            self.create_user(
+                first_name="Anna",
+                last_name="Johnson",
+                bio="I am a graphic designer with 5 years of experience in the IT industry. I have a strong background in graphic design and web design.",
+                location="Warsaw",
+                skills=["Graphic Design", "Adobe Photoshop", "Adobe Illustrator"],
+                linkedin=True,
+            ),
+        ]
+
+        # Marketers
+        self.MARKETERS += [
+            self.create_user(
+                first_name="Mark",
+                last_name="Johnson",
+                bio="I am a marketing specialist with 5 years of experience in the IT industry. I have a strong background in digital marketing and social media management.",
+                location="London",
+                skills=["Digital Marketing", "SMM", "Google Analytics"],
+                linkedin=True,
+            ),
+            self.create_user(
+                first_name="Samantha",
+                last_name="Williams",
+                bio="I have a passion for marketing and a strong background in digital marketing. I love working with a team of talented developers to bring ideas to life.",
+                location="New York",
+                skills=["Digital Marketing", "SMM", "SEO"],
+                linkedin=True,
+            ),
+            self.create_user(
+                first_name="Robert",
+                last_name="Miller",
+                bio="I am a marketing specialist with 5 years of experience in the IT industry. I have a strong background in digital marketing and social media management.",
+                location="Warsaw",
+                skills=["Digital Marketing", "SMM", "Google Analytics"],
+                linkedin=True,
+            ),
+        ]
+
+    def create_project(self, name, description, location, ended, owner, roles):
+        project = Project.objects.create(
+            name=name,
+            description=description,
+            location=location,
+            ended=ended,
+            responsible_user=owner,
         )
 
-        user3 = User.objects.create_user(
-            email="user3@example.com",
-            password="user3",
-            first_name="Timothy",
-            last_name="Jones",
+        ProjectRole.objects.create(
+            project=project,
+            user=owner,
+            name="Project Manager",
+            description="Overseeing and coordinating all aspects of project development from inception to completion. "
+                        "Defining project scope, goals, and deliverables while ensuring alignment with business "
+                        "objectives. "
+                        "Developing detailed project plans, including schedules, resource allocation, and budgets. "
+                        "Managing cross-functional teams, fostering a collaborative environment, and ensuring project "
+                        "milestones are met on time and within budget.",
         )
-        profile3 = UserProfile.objects.create(
-            user=user3,
-            image="",
-            bio="I am a marketing specialist. I want to help you grow your business by creating a strong online "
-            "presence and building a loyal customer base. I have experience in SEO, social media marketing, and "
-            "content marketing. I am always looking for new opportunities to learn and grow.",
-            location="New York",
-            linkedin_url="https://www.linkedin.com/in/user3/",
-        )
-        with open(people_images / "04.jpg", "rb") as image:
-            profile3.image.save(
-                "user3.jpg",
-                SimpleUploadedFile("user3.jpg", image.read(), content_type="image/jpg"),
-            )
-        UserSkill.objects.create(
-            user=user3,
-            name="SEO",
-        )
-        UserSkill.objects.create(
-            user=user3,
-            name="Social Media Marketing",
-        )
-        UserSkill.objects.create(
-            user=user3,
-            name="Content Marketing",
-        )
+        for role in roles:
+            ProjectRole.objects.create(project=project, **role)
+
+        if ended:
+            # Get all permutations of roles to create reviews for each other
+            role_names = [[role["name"], role['user']] for role in roles if role['user']] + [["Project Manager", owner]]
+            for role1, role2 in list(itertools.permutations(role_names, 2)):
+                rating, review_text = random.choice(self.REVIEWS)
+                ProjectRoleReview.objects.create(
+                    role=ProjectRole.objects.get(project=project, user=role1[1], name=role1[0]),
+                    reviewer_role=ProjectRole.objects.get(project=project, user=role2[1], name=role2[0]),
+                    text=review_text.format(name=role1[1].first_name),
+                    rating=rating,
+                )
+        return project
 
     def setup_projects(self):
         Project.objects.all().delete()
-        project1 = Project.objects.create(
+        self.create_project(
             name="GreenApp",
-            description="GreenApp is a web application that helps users reduce their carbon footprint by providing "
-            "them with personalized tips and advice on how to live a more sustainable lifestyle. "
-            "The app also allows users to track their progress and compare their carbon footprint "
-            "with other users.",
+            description="GreenApp is a web application that helps users to find the best eco-friendly products. "
+                        "The application is built using React.js and Django.",
             location="Remote",
             ended=True,
-            responsible_user=User.objects.get(email="admin@example.com"),
-        )
-        project1_pm = ProjectRole.objects.create(
-            project=project1,
-            user=User.objects.get(email="admin@example.com"),
-            name="Project Manager",
-            description="Overseeing and coordinating all aspects of project development from inception to completion. Defining project scope, goals, and deliverables while ensuring alignment with business objectives. Developing detailed project plans, including schedules, resource allocation, and budgets. Managing cross-functional teams, fostering a collaborative environment, and ensuring clear communication among stakeholders. Identifying potential risks and implementing appropriate mitigation strategies. Monitoring project progress, making data-driven decisions, and adjusting plans as needed to meet deadlines and maintain quality. Conducting post-project evaluations to measure success and identify areas for improvement.",
-        )
-        project1_webdev = ProjectRole.objects.create(
-            project=project1,
-            user=User.objects.get(email="user1@example.com"),
-            name="Web Developer",
-            description="Developing and maintaining the front-end of the web application. Working closely with the UI/UX designer to implement designs and ensure a smooth user experience. Ensuring the technical feasibility of UI/UX designs. Optimizing application for maximum speed and scalability. Collaborating with other team members and stakeholders.",
-        )
-        project1_uxui = ProjectRole.objects.create(
-            project=project1,
-            user=User.objects.get(email="user2@example.com"),
-            name="UI/UX Designer",
-            description="Designing and implementing the user interface of the web application. Working closely with the web developer to implement designs and ensure a smooth user experience. Conducting user research and testing to inform design decisions. Creating wireframes, prototypes, and mockups to effectively communicate interaction and design ideas. Collaborating with other team members and stakeholders.",
-        )
-        project1_marketing = ProjectRole.objects.create(
-            project=project1,
-            user=User.objects.get(email="user3@example.com"),
-            name="Marketing Specialist",
-            description="Developing and implementing marketing strategies to promote the web application. Conducting market research to identify opportunities for growth. Creating and managing content for the web application. Managing social media accounts and creating social media campaigns. Collaborating with other team members and stakeholders.",
-        )
-        ProjectRoleReview.objects.create(
-            role=project1_pm,
-            reviewer_role=project1_webdev,
-            text="Great project manager. Very organized and always on top of things.",
-            rating=5,
-        )
-        ProjectRoleReview.objects.create(
-            role=project1_pm,
-            reviewer_role=project1_uxui,
-            text="I don't think I've ever worked with a better project manager. ",
-            rating=5,
-        )
-        ProjectRoleReview.objects.create(
-            role=project1_pm,
-            reviewer_role=project1_marketing,
-            text="She has some problems with communication.",
-            rating=4,
-        )
-        ProjectRoleReview.objects.create(
-            role=project1_webdev,
-            reviewer_role=project1_pm,
-            text="Great web developer. Very organized and always on top of things. ",
-            rating=5,
-        )
-        ProjectRoleReview.objects.create(
-            role=project1_webdev,
-            reviewer_role=project1_uxui,
-            text="I don't think I've ever worked with a better web developer. ",
-            rating=5,
-        )
-        ProjectRoleReview.objects.create(
-            role=project1_webdev,
-            reviewer_role=project1_marketing,
-            text="He has some problems with communication.",
-            rating=3,
-        )
-        ProjectRoleReview.objects.create(
-            role=project1_uxui,
-            reviewer_role=project1_pm,
-            text="Great UI/UX designer. Very organized and always on top of things.",
-            rating=5,
-        )
-        ProjectRoleReview.objects.create(
-            role=project1_uxui,
-            reviewer_role=project1_webdev,
-            text="I don't think I've ever worked with a better UI/UX designer.",
-            rating=5,
-        )
-        ProjectRoleReview.objects.create(
-            role=project1_uxui,
-            reviewer_role=project1_marketing,
-            text="Good UI/UX designer.",
-            rating=4,
+            owner=self.PROJECT_MANAGERS[0],
+            roles=[
+                {"name": "Front-end developer", "user": self.DEVELOPERS[0]},
+                {"name": "Full-stack developer", "user": self.DEVELOPERS[1]},
+                {"name": "Designer", "user": self.DESIGNERS[0]},
+                {"name": "Marketer", "user": self.MARKETERS[0]},
+            ],
         )
 
-        project2 = Project.objects.create(
-            name="E-Commerce App",
-            description="E-Commerce App is a web application that allows users to buy and sell products online. "
-            "The app also allows users to create their own online stores and manage their inventory.",
-            location="Remote",
+        self.create_project(
+            name="Online Pharmacy",
+            description="This application is an online pharmacy that allows users to order medicines online. ",
+            location="New York",
+            ended=True,
+            owner=self.PROJECT_MANAGERS[1],
+            roles=[
+                {"name": "Back-end developer", "user": self.DEVELOPERS[3]},
+                {"name": "Full-stack developer", "user": self.DEVELOPERS[4]},
+                {"name": "Data-Scientist", "user": self.DEVELOPERS[2]},
+                {"name": "Designer", "user": self.DESIGNERS[1]},
+                {"name": "Marketer", "user": self.MARKETERS[1]},
+            ],
+        )
+
+        self.create_project(
+            name="Social Media App",
+            description="This application is a social media app that allows users to share their thoughts and ideas. ",
+            location="London",
+            ended=True,
+            owner=self.PROJECT_MANAGERS[0],
+            roles=[
+                {"name": "Full-stack developer", "user": self.DEVELOPERS[2]},
+                {"name": "Designer", "user": self.DESIGNERS[2]},
+                {"name": "Marketer", "user": self.MARKETERS[2]},
+            ],
+        )
+
+        self.create_project(
+            name="Online university",
+            description="This application is an online university that allows users to take online courses. ",
+            location="Warsaw",
             ended=False,
-            responsible_user=User.objects.get(email="user2@example.com"),
+            owner=self.PROJECT_MANAGERS[0],
+            roles=[
+                {"name": "Full-stack developer", "user": None},
+                {"name": "Front-end developer", "user": self.DEVELOPERS[5]},
+                {"name": "Back-end developer", "user": None},
+                {"name": "Marketer", "user": None},
+            ]
         )
-        project2_pm = ProjectRole.objects.create(
-            project=project2,
-            user=User.objects.get(email="admin@example.com"),
-            name="Project Manager",
-            description="Directing project development from initiation to closure. Establishing project objectives, schedules, and resource allocation. Leading cross-functional teams, promoting clear communication, and mitigating risks. Monitoring progress and adjusting plans to meet deadlines and maintain quality. Analyzing project outcomes for continuous improvement.",
-        )
-        project2_webdev = ProjectRole.objects.create(
-            project=project2,
-            user=None,
-            name="Web Developer",
-            description="Designing and developing web applications using modern technologies. Collaborating with designers to create user-friendly interfaces. Ensuring optimal performance and responsiveness. Adapting to project requirements and implementing updates. Staying current with industry trends for continuous growth.",
-        )
-        project2_uxui = ProjectRole.objects.create(
-            project=project2,
-            user=None,
-            name="UI/UX Designer",
-            description="Creating intuitive and visually appealing designs for digital platforms. Collaborating with developers for seamless integration. Utilizing design tools to produce graphics and prototypes. Conducting user research and usability testing to inform design decisions. Keeping up with industry trends for continuous improvement.",
+
+        self.create_project(
+            name="Delivery App",
+            description="This application is a delivery app that allows users to order food online. ",
+            location="Munich",
+            ended=False,
+            owner=self.PROJECT_MANAGERS[1],
+            roles=[
+                {"name": "Full-stack developer", "user": None},
+                {"name": "Designer", "user": None},
+            ]
         )
