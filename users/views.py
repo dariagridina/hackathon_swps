@@ -1,4 +1,5 @@
 from django.contrib.auth.views import LoginView as DjangoLoginView
+from django.db import models
 from django.views.generic import DetailView, ListView
 
 from users.models import User
@@ -19,6 +20,16 @@ class LoginView(DjangoLoginView):
 
 class UserProfileDetailView(DetailView):
     model = User
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["avg_rating"] = self.object.project_roles.aggregate(
+            models.Avg("reviews__rating")
+        )["reviews__rating__avg"]
+        context["reviews_count"] = self.object.project_roles.aggregate(
+            models.Count("reviews")
+        )["reviews__count"]
+        return context
 
 
 class UserProfileListView(ListView):

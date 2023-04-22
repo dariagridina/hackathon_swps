@@ -1,9 +1,9 @@
 from django.contrib import admin
-from projects.models import Project, ProjectMember, ProjectTag, ProjectMemberReview
+from projects.models import Project, ProjectRole, ProjectTag, ProjectRoleReview
 
 
-class ProjectMemberInline(admin.TabularInline):
-    model = ProjectMember
+class ProjectRoleInline(admin.TabularInline):
+    model = ProjectRole
     extra = 1
 
 
@@ -14,10 +14,10 @@ class ProjectTagInline(admin.TabularInline):
 
 class ProjectAdmin(admin.ModelAdmin):
     inlines = [
-        ProjectMemberInline,
+        ProjectRoleInline,
         ProjectTagInline,
     ]
 
 
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(ProjectMemberReview)
+admin.site.register(ProjectRoleReview)

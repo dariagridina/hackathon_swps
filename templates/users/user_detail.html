@@ -1,15 +1,49 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static rating_helpers %}
 
 {% block content %}
-  <div class="container">
+  <section class="container py-lg-4 py-xl-5 mt-3 mb-5">
+    <div class="row g-0 bg-dark bg-repeat-0 bg-position-center border rounded-3 overflow-hidden">
+      <div class="col-md-5 bg-repeat-0 bg-position-top-center bg-size-cover" style="background-image: url({{ user.profile.image.url }}); min-height: 350px;"></div>
+      <div class="col-md-7 py-xl-5 px-4">
+        <div class="py-5 mx-auto" style="max-width: 530px;">
+          <div class="fs-xl text-light opacity-50 mb-2">Learn from the best</div>
+          <h2 class="h1 text-light mb-4">Albert Flores</h2>
+          <p class="text-light opacity-70 pb-4">Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.</p>
+          <div class="d-flex flex-column flex-sm-row">
+            <a href="#" class="btn btn-danger me-sm-4 mb-3 mb-sm-0">
+              <i class="bx bxl-youtube fs-xl me-2"></i>
+              240k subscribers
+            </a>
+            <a href="#" class="btn btn-info">
+              <i class="bx bxl-facebook-square fs-xl me-2"></i>
+              180k followers
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="container mb-5">
     <div class="row">
       <div class="col-md-4">
         <img src="{{ user.profile.image.url }}" alt="Profile Image" class="img-thumbnail">
       </div>
       <div class="col-md-8">
         <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-        <p class="lead">{{ user.profile.bio }}</p>
+
+        <p class="h3 mb-3">
+          {% for i in "12345" %}
+            <i class="bx {{ avg_rating|rating_star_class:i|get_digit:1 }} text-warning"></i>
+          {% endfor %}
+          ({{ avg_rating|floatformat:1 }})
+        </p>
+
+        <p class="fs-lg"><i class='bx bx-map' ></i> {{ user.profile.location }}</p>
+
+        <p class="fs-lg">{{ user.profile.bio }}</p>
         <div class="mb-3">
           {% if user.profile.linkedin_url %}
             <a href="{{ user.profile.linkedin_url }}" target="_blank" class="btn btn-primary">LinkedIn</a>
@@ -22,38 +56,67 @@
         <button class="btn btn-success mb-3">Contact User</button>
       </div>
     </div>
-    <hr>
-    <h2>Skills</h2>
-    <ul>
-      {% for skill in user.skills.all %}
-        <li>{{ skill.name }}</li>
-      {% endfor %}
-    </ul>
-    <hr>
-    <h2>Projects History</h2>
-    {% if user.project_memberships.exists %}
-      <ul>
-        {% for project_membership in user.project_memberships.all %}
-          <li>{{ project_membership.project.name }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>User has not worked on any projects yet.</p>
-    {% endif %}
-  </div>
-  {% if user.reviews_received.all %}
-    <section class="container mb-5 pb-lg-5 pb-md-4 pb-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text fs-sm">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-sm btn-primary">Go somewhere</a>
+  </section>
+
+
+  {% if user.project_roles.all %}
+    <section class="container">
+      <h2>Projects History</h2>
+      {% for role in user.project_roles.all %}
+        <div class="card">
+          <div class="card-header">
+              <span class="card-title fs-lg mb-5">
+                <strong>{{ role.name }}</strong> at
+                <a href="{{ role.project.get_absolute_url }}" class="text-decoration-none"><strong>{{ role.project.name }}</strong></a>
+              </span>
+          </div>
+          <div class="card-body">
+            <span class="card-title bold">
+              <strong>Role description:</strong>
+            </span>
+            <p class="card-text fs-lg">
+              {{ role.description }}
+            </p>
+          </div>
+          {% if role.reviews.all %}
+            <div class="card-footer">
+                <span class="card-title bold">
+                  <strong>Reviews:</strong>
+                </span>
+              <p class="card-text">
+                {% for review in role.reviews.all %}
+                  <figure class="card h-100 position-relative border-0 bg-transparent mb-0">
+                    <figcaption class="card-footer border-0 d-flex align-items-start w-100 pb-2">
+                      <img src="{{ review.reviewer_role.user.profile.image.url }}" class="rounded-circle" alt="{{ review.reviewer_role.user.get_full_name }}" width="60">
+                      <div class="ps-3">
+                        <h6 class="fw-semibold lh-base mb-0">
+                          <a href="{{ review.reviewer_role.user.get_absolute_url }}" class="text-decoration-none">{{ review.reviewer_role.user.get_full_name }}</a>
+                        </h6>
+                        <span class="fs-sm text-muted">{{ review.reviewer_role.name }} at {{ review.reviewer_role.project.name }}</span>
+                        <p class="fs-sm mt-2">{{ review.text }}</p>
+                        <div class="fs-sm text-nowrap">
+                          {% for i in "12345" %}
+                            {% if i|get_digit:1 <= review.rating %}
+                              <i class="bx bxs-star text-warning"></i>
+                            {% else %}
+                              <i class="bx bx-star text-warning"></i>
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </figcaption>
+                  </figure>
+                {% endfor %}
+              </p>
+            </div>
+          {% endif %}
         </div>
-      </div>
+      {% endfor %}
     </section>
   {% else %}
-    <p>User has not received any reviews yet.</p>
+    <p>User has not worked on any projects yet.</p>
   {% endif %}
+  </section>
 {% endblock %}
 
 

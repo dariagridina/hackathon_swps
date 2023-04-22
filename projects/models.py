@@ -1,5 +1,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.urls import reverse
 
 
 class Project(models.Model):
@@ -14,6 +15,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("project_detail", kwargs={"pk": self.pk})
+
 
 class ProjectTag(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -23,40 +27,41 @@ class ProjectTag(models.Model):
         return self.tag
 
 
-class ProjectMember(models.Model):
+class ProjectRole(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
         unique=True,
-        related_name="project_memberships",
+        related_name="project_roles",
+        null=True,
+        blank=True,
     )
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+
+    class Meta:
+        unique_together = ['project', 'user']
+
+    def __str__(self):
+        return f"{self.user}: {self.name} at {self.project.name}"
 
 
-class ProjectMemberReview(models.Model):
-    member = models.ForeignKey(
-        ProjectMember,
+class ProjectRoleReview(models.Model):
+    role = models.ForeignKey(
+        ProjectRole,
         on_delete=models.CASCADE,
         related_name="reviews",
-        related_query_name="reviews",
     )
-    reviewer = models.ForeignKey(
-        "users.User",
+    reviewer_role = models.ForeignKey(
+        ProjectRole,
         on_delete=models.CASCADE,
         related_name="reviews_written",
-        related_query_name="review_written",
     )
-    project = models.ForeignKey(
-        "projects.Project",
-        on_delete=models.CASCADE,
-        related_name="reviews",
-        related_query_name="review",
-    )
-    headline = models.CharField(max_length=100)
     text = models.TextField()
     rating = models.IntegerField(
         validators=[MaxValueValidator(5), MinValueValidator(1)]
     )
 
     def __str__(self):
-        return f"{self.reviewer.email} - {self.member.email}"
+        return f"{self.reviewer_role.user.email} - {self.role.user.email}"
