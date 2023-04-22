@@ -32,16 +32,12 @@ class ProjectRole(models.Model):
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
-        unique=True,
         related_name="project_roles",
         null=True,
         blank=True,
     )
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-
-    class Meta:
-        unique_together = ['project', 'user']
 
     def __str__(self):
         return f"{self.user}: {self.name} at {self.project.name}"
