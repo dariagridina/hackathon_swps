@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load rating_helpers %}
+
+{% block content %}
+    <section class="container pt-xl-3 pt-lg-4 pt-md-3 pb-lg-5 pb-md-4 pb-3">
+        <div class="tab-content mb-xl-3 py-4 bg-secondary rounded-3">
+            <div class="tab-pane fade active show" id="people" role="tabpanel">
+                <div class="row align-items-center pt-3 pt-sm-4 pt-md-0 px-3 px-sm-4 px-lg-0">
+                    <div class="row mb-3 mt-3">
+                        <form method="get">
+                            <div class="row col-md-9 offset-1">
+                                <div class="col-md-5 mb-4">
+                                    <label class="form-label" for="name">Search</label>
+                                    <div class="input-group">
+                                        <input id="name" name="name" type="text" class="form-control pe-5 rounded"
+                                               placeholder="Search by name..." value="{{ request.GET.name }}">
+                                        <i class="bx bx-search position-absolute top-50 end-0 translate-middle-y me-3 zindex-5 fs-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-4">
+                                    <label class="form-label" for="category">Category</label>
+                                    <select id="category" name="category" class="form-select">
+                                        <option value="">All categories</option>
+                                        {% for category in project.category.all %}
+                                            <option value="{{ category }}"
+                                                    {% if category == request.GET.project.category %}selected=""{% endif %}>{{ category }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-4">
+                                    <label class="form-label" for="city">Location</label>
+                                    <select class="form-select" id="city" name="city">
+                                        <option value="">All locations</option>
+                                        {% for city in project.location %}
+                                            <option value="{{ city }}"
+                                                    {% if city == request.GET.city %}selected=""{% endif %}>{{ city }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="invalid-feedback">Please provide a valid location.</div>
+                                    <div class="valid-feedback">Looks good!</div>
+                                </div>
+                                <div class="col-md-1 mb-4 mt-4">
+                                    <button class="btn btn-primary rounded-pill" type="submit">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <section class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                {% for project in project_list %}
+                    <article>
+                        <div class="col">
+                            <div class="position-relative">
+                                <a href="#"
+                                   class="position-absolute top-0 start-0 w-100 h-100"
+                                   aria-label="Read more"></a>
+                                <a href="#"
+                                   class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3"
+                                   data-bs-toggle="tooltip" data-bs-placement="left"
+                                   aria-label="Read later"
+                                   data-bs-original-title="Read later">
+                                    <i class="bx bx-bookmark"></i>
+                                </a>
+                            </div>
+                            <div class="card h-100">
+                                <div class="card-body pb-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-3">
+                                        <a href="#"
+                                           class="badge fs-sm text-nav bg-secondary text-decoration-none">{{ project.category }}</a>
+                                    </div>
+                                    <div class="card-body">
+                                        <a href="{{ project.get_absolute_url }}" class="text-decoration-none">
+                                            <h5 class="card-title">{{ project.name }}</h5>
+                                        </a>
+                                        <span><p
+                                                class="card-text">{{ project.description |truncatechars:200 }}</p></span>
+                                    </div>
+                                </div>
+                                <span class="card-body pb-2"><span class="text-primary fw-semibold"></span> Users in this project</span>
+                                <div class="card-footer py-3">
+                                    <div class="d-flex me-3">
+                                        <div class="d-flex align-items-center fw-bold text-dark text-decoration-none">
+                                            {% for role in project.roles.all %}
+                                                {% if role.user %}
+                                                    <div class="d-flex align-items-center justify-content-center bg-light rounded-circle{% if not forloop.first %} ms-n3{% endif %}"
+                                                         style="width: 52px; height: 52px;">
+                                                        <img src="{{ role.user.profile.image.url }}"
+                                                             class="rounded-circle" width="48"
+                                                             alt="{{ role.user.get_full_name }} Avatar">
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+
+{% endblock %}

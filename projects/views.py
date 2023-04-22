@@ -1,6 +1,7 @@
 from django.views.generic import DetailView, ListView
 
 from projects.models import Project
+from django.db.models import Q
 
 
 class ProjectDetailView(DetailView):
@@ -17,3 +18,18 @@ class ProjectDetailView(DetailView):
 
 class ProjectListView(ListView):
     model = Project
+    def get_queryset(self):
+        qs = Project.objects.filter(name__isnull=False)
+        category = self.request.GET.get("category")
+        if category:
+            print("category: ", category)
+            qs = qs.filter(project__category=category)
+        location = self.request.GET.get("location")
+        if location:
+            print("location: ", location)
+            qs = qs.filter(project__location=location)
+        name = self.request.GET.get("name")
+        if name:
+            print("name: ", name)
+            qs = qs.filter(Q(name__icontains=name))
+        return qs.distinct()
