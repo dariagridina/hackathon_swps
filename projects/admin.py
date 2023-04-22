@@ -1,5 +1,5 @@
 from django.contrib import admin
-from projects.models import Project, ProjectRole, ProjectTag, ProjectRoleReview
+from projects.models import Project, ProjectRole, ProjectRoleReview
 
 
 class ProjectRoleInline(admin.TabularInline):
@@ -7,15 +7,9 @@ class ProjectRoleInline(admin.TabularInline):
     extra = 1
 
 
-class ProjectTagInline(admin.TabularInline):
-    model = ProjectTag
-    extra = 1
-
-
 class ProjectAdmin(admin.ModelAdmin):
     inlines = [
         ProjectRoleInline,
-        ProjectTagInline,
     ]
 
 

@@ -297,11 +297,12 @@ class Command(BaseCommand):
             ),
         ]
 
-    def create_project(self, name, description, location, ended, owner, roles):
+    def create_project(self, name, description, category, location, ended, owner, roles):
         project = Project.objects.create(
             name=name,
             description=description,
             location=location,
+            category=category,
             ended=ended,
             responsible_user=owner,
         )
@@ -345,6 +346,7 @@ class Command(BaseCommand):
             name="GreenApp",
             description="GreenApp is a web application that helps users to find the best eco-friendly products. "
             "The application is built using React.js and Django.",
+            category="Web Development",
             location="Remote",
             ended=True,
             owner=self.PROJECT_MANAGERS[0],
@@ -376,6 +378,7 @@ class Command(BaseCommand):
             name="Online Pharmacy",
             description="This application is an online pharmacy that allows users to order medicines online. ",
             location="New York",
+            category="Web Development",
             ended=True,
             owner=self.PROJECT_MANAGERS[1],
             roles=[
@@ -411,6 +414,7 @@ class Command(BaseCommand):
             name="Social Media App",
             description="This application is a social media app that allows users to share their thoughts and ideas. ",
             location="London",
+            category="Mobile Development",
             ended=True,
             owner=self.PROJECT_MANAGERS[0],
             roles=[
@@ -436,6 +440,7 @@ class Command(BaseCommand):
             name="Online university",
             description="This application is an online university that allows users to take online courses. ",
             location="Warsaw",
+            category="Web Development",
             ended=False,
             owner=self.PROJECT_MANAGERS[0],
             roles=[
@@ -466,6 +471,7 @@ class Command(BaseCommand):
             name="Delivery App",
             description="This application is a delivery app that allows users to order food online. ",
             location="Munich",
+            category="Mobile Development",
             ended=False,
             owner=self.PROJECT_MANAGERS[1],
             roles=[

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
     <!-- Page title -->
@@ -23,6 +24,20 @@
         </div>
         </div>
         </div>
+        <a href="#"
+           class="d-flex align-items-center fw-bold text-dark text-decoration-none mt-4">
+    {% for role in project.roles.all %}
+                    <div class="d-flex me-3">
+                        <div class="d-flex align-items-center justify-content-center bg-light rounded-circle"
+                             style="width: 52px; height: 52px;">
+                            <img src="{{ role.user.profile.image.url }}"
+                                 class="rounded-circle" width="48" alt="Avatar">
+                        </div>
+                    </div>
+
+{% endfor %}
+        <span class="fs-sm"><span class="text-primary fw-semibold"></span> Users in this project</span>
+        </a>
     </section>
 
     <!-- Content -->
@@ -58,34 +73,24 @@
                             </ul>
                         </div>
                     </div>
-        </div>
-        </aside>
-        <!--Content-->
-        <div class="col-lg-5">
-            <div class="pe-lg-4 me-lg-4 pe-xl-0 me-xl-0">
-                <div class="mb-4 pb-2">
-                    <h2 class="h1 mb-4">Project description</h2>
-                    <p class="fs-lg mb-0">{{ project.description }}</p>
-                    <!-- Tags -->
-                    <hr class="mb-4">
-                    <div class="d-flex flex-sm-row flex-column pt-2">
-                        <h6 class="mt-sm-1 mb-sm-2 mb-3 me-2 text-nowrap">Related
-                            Tags:</h6>
-                        <div>
-                            <a href="#"
-                               class="btn btn-sm btn-outline-secondary me-2 mb-2">#lifestyle</a>
-                            <a href="#"
-                               class="btn btn-sm btn-outline-secondary me-2 mb-2">#tech</a>
-                            <a href="#"
-                               class="btn btn-sm btn-outline-secondary me-2 mb-2">#business</a>
-                        </div>
+                </div>
+            </aside>
+            <!--Content-->
+            <div class="col-lg-5">
+                <div class="pe-lg-4 me-lg-4 pe-xl-0 me-xl-0">
+                    <div class="mb-4 pb-2">
+                        <h2 class="h1 mb-4">Project description</h2>
+                        <p class="fs-lg mb-0">{{ project.description }}</p>
+                        <!-- Tags -->
                     </div>
                 </div>
             </div>
         </div>
-        </div>
     </section>
     <!-- Related posts -->
+
+
+
     <section class="container mb-5 pt-md-4">
         <div class="d-flex flex-sm-row flex-column align-items-center justify-content-between mb-4 pb-1 pb-md-3">
             <h2 class="h1 mb-sm-0">Similar projects</h2>
@@ -94,6 +99,7 @@
                 <i class="bx bx-right-arrow-alt ms-1 me-n1 lh-1 lead"></i>
             </a>
         </div>
+
         <div class="swiper mx-n2 swiper-initialized swiper-horizontal swiper-pointer-events swiper-backface-hidden"
              data-swiper-options="{
           &quot;slidesPerView&quot;: 1,
@@ -111,63 +117,74 @@
             }
           }
         }">
-            <div class="swiper-wrapper" id="swiper-wrapper-f85f751f2eafaf1d"
-                 aria-live="polite" style="transform: translate3d(0px, 0px, 0px);">
+            <div class="swiper-wrapper" id="swiper-wrapper-8d2810103c2b901379"
+                 aria-live="polite"
+                 style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
 
-                <!-- Item -->
                 {% for project in related_projects %}
-                    {% if project.ended == False %}
-                        <div class="swiper-slide h-auto pb-3 swiper-slide-active"
-                             role="group"
-                             aria-label="1 / 3"
-                             style="width: 450.5px; margin-right: 8px;">
+                    <div class="swiper-slide h-auto pb-3 swiper-slide-active"
+                         style="width: 419.667px; margin-right: 8px;" role="group">
                         <article class="card border-0 shadow-sm h-100 mx-2">
-                        <div class="position-relative">
-                            <a href="project_detail.html"
-                               class="position-absolute top-0 start-0 w-100 h-100"
-                               aria-label="Read more"></a>
-                            <a href="#"
-                               class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3"
-                               data-bs-toggle="tooltip" data-bs-placement="left"
-                               aria-label="Read later"
-                               data-bs-original-title="Read later">
-                                <i class="bx bx-bookmark"></i>
-                            </a>
-                        </div>
-                        <div class="card-body pb-4">
-                            <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="position-relative">
+                                <a href="{{ project.get_absolute_url }}"
+                                   class="position-absolute top-0 start-0 w-100 h-100"
+                                   aria-label="Read more"></a>
                                 <a href="#"
-                                   class="badge fs-sm text-nav bg-secondary text-decoration-none">Project
-                                    tag</a>
-                                {% comment %}<span class="fs-sm text-muted">May 19, 2021</span>{% endcomment %}
+                                   class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3"
+                                   data-bs-toggle="tooltip" data-bs-placement="left"
+                                   aria-label="Read later"
+                                   data-bs-original-title="Read later">
+                                    <i class="bx bx-bookmark"></i>
+                                </a>
                             </div>
-                            <h3 class="h5 mb-0">
-                                <a href="project_detail.html">{{ project.name }}</a>
-                            </h3>
-                        </div>
-                        <div class="card-footer py-4">
-                            <a href="#"
-                               class="d-flex align-items-center fw-bold text-dark text-decoration-none">
-                                <img src="{{ user.profile.image.url }}"
-                                     class="rounded-circle me-3" width="48"
-                                     alt="Avatar">
-                                {{ project.responsible_user.get_full_name }}
-                            </a>
-                        </div>
-                    {% endif %}
+                            <div class="card-body pb-4">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <a href="#"
+                                       class="badge fs-sm text-nav bg-secondary text-decoration-none">{{ project.category }}</a>
+                                </div>
+                                <h3 class="h5 mb-0">
+                                    <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
+                                </h3>
+                                <span>
+                                {{ project.description|truncatechars:200 }}
+                            </span>
+                            </div>
+                            <div class="card-footer py-4">
+                                <div class="d-flex me-3">
+                                    {% for role in project.roles.all %}
+                                        <div class="d-flex align-items-center justify-content-center bg-light rounded-circle"
+                                             style="width: 52px; height: 52px;">
+                                            <img src="{{ role.user.profile.image.url }}"
+                                                 class="rounded-circle" width="48"
+                                                 alt="Avatar">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </article>
+                    </div>
                 {% endfor %}
-                </article>
-                </div>
-
             </div>
 
             <!-- Pagination (bullets) -->
-            <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4 swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
-                <span class="swiper-pagination-bullet" tabindex="0" role="button"
-                      aria-label="Go to slide 1"></span><span
-                    class="swiper-pagination-bullet swiper-pagination-bullet-active"
-                    tabindex="0" role="button" aria-label="Go to slide 2"
-                    aria-current="true"></span></div>
-        </div>
+            <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4 swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock">
+                <span class="swiper-pagination-bullet swiper-pagination-bullet-active"
+                      tabindex="0" role="button" aria-label="Go to slide 1"
+                      aria-current="true"></span></div>
+            <span class="swiper-notification" aria-live="assertive"
+                  aria-atomic="true"></span></div>
     </section>
+{% endblock %}
+
+{% block vendor_css %}
+    <link rel="stylesheet" media="screen"
+          href="{% static "vendor/boxicons/css/boxicons.min.css" %}">
+    <link rel="stylesheet" media="screen"
+          href="{% static "vendor/swiper/swiper-bundle.min.css" %}">
+{% endblock %}
+
+{% block vendor_js %}
+    <script src="{% static "vendor/bootstrap/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "vendor/smoot-scroll/smooth-scroll.polyfills.min.js" %}"></script>
+    <script src="{% static "vendor/swiper/swiper-bundle.min.js" %}"></script>
 {% endblock %}

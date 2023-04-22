@@ -11,6 +11,7 @@ class Project(models.Model):
     responsible_user = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, related_name="responsible_user"
     )
+    category = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -18,13 +19,6 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse("project_detail", kwargs={"pk": self.pk})
 
-
-class ProjectTag(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    tag = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.tag
 
 
 class ProjectRole(models.Model):
