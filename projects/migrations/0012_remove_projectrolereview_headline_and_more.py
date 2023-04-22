@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("projects", "0011_rename_role_description_projectrole_description_and_more"),
     ]

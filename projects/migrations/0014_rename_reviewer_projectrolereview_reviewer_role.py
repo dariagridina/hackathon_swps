@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("projects", "0013_remove_projectrolereview_member_and_more"),
     ]

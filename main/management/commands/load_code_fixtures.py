@@ -8,6 +8,7 @@ from users.models import User, UserProfile, UserSkill
 
 people_images = settings.BASE_DIR / "main" / "code_fixtures" / "images" / "people"
 
+
 class Command(BaseCommand):
     help = "Loads code fixtures"
 
@@ -39,9 +40,7 @@ class Command(BaseCommand):
         with open(people_images / "01.jpg", "rb") as image:
             profile.image.save(
                 "admin.jpg",
-                SimpleUploadedFile(
-                    "admin.jpg", image.read(), content_type="image/jpg"
-                ),
+                SimpleUploadedFile("admin.jpg", image.read(), content_type="image/jpg"),
             )
         UserSkill.objects.create(
             user=admin,
@@ -76,9 +75,7 @@ class Command(BaseCommand):
         with open(people_images / "02.jpg", "rb") as image:
             profile1.image.save(
                 "user1.jpg",
-                SimpleUploadedFile(
-                    "user1.jpg", image.read(), content_type="image/jpg"
-                ),
+                SimpleUploadedFile("user1.jpg", image.read(), content_type="image/jpg"),
             )
 
         UserSkill.objects.create(
@@ -117,9 +114,7 @@ class Command(BaseCommand):
         with open(people_images / "03.jpg", "rb") as image:
             profile2.image.save(
                 "user2.jpg",
-                SimpleUploadedFile(
-                    "user2.jpg", image.read(), content_type="image/jpg"
-                ),
+                SimpleUploadedFile("user2.jpg", image.read(), content_type="image/jpg"),
             )
         UserSkill.objects.create(
             user=user2,
@@ -144,17 +139,15 @@ class Command(BaseCommand):
             user=user3,
             image="",
             bio="I am a marketing specialist. I want to help you grow your business by creating a strong online "
-                "presence and building a loyal customer base. I have experience in SEO, social media marketing, and "
-                "content marketing. I am always looking for new opportunities to learn and grow.",
+            "presence and building a loyal customer base. I have experience in SEO, social media marketing, and "
+            "content marketing. I am always looking for new opportunities to learn and grow.",
             location="New York",
             linkedin_url="https://www.linkedin.com/in/user3/",
         )
         with open(people_images / "04.jpg", "rb") as image:
             profile3.image.save(
                 "user3.jpg",
-                SimpleUploadedFile(
-                    "user3.jpg", image.read(), content_type="image/jpg"
-                ),
+                SimpleUploadedFile("user3.jpg", image.read(), content_type="image/jpg"),
             )
         UserSkill.objects.create(
             user=user3,
@@ -185,25 +178,25 @@ class Command(BaseCommand):
             project=project1,
             user=User.objects.get(email="admin@example.com"),
             name="Project Manager",
-            description="Overseeing and coordinating all aspects of project development from inception to completion. Defining project scope, goals, and deliverables while ensuring alignment with business objectives. Developing detailed project plans, including schedules, resource allocation, and budgets. Managing cross-functional teams, fostering a collaborative environment, and ensuring clear communication among stakeholders. Identifying potential risks and implementing appropriate mitigation strategies. Monitoring project progress, making data-driven decisions, and adjusting plans as needed to meet deadlines and maintain quality. Conducting post-project evaluations to measure success and identify areas for improvement."
+            description="Overseeing and coordinating all aspects of project development from inception to completion. Defining project scope, goals, and deliverables while ensuring alignment with business objectives. Developing detailed project plans, including schedules, resource allocation, and budgets. Managing cross-functional teams, fostering a collaborative environment, and ensuring clear communication among stakeholders. Identifying potential risks and implementing appropriate mitigation strategies. Monitoring project progress, making data-driven decisions, and adjusting plans as needed to meet deadlines and maintain quality. Conducting post-project evaluations to measure success and identify areas for improvement.",
         )
         project1_webdev = ProjectRole.objects.create(
             project=project1,
             user=User.objects.get(email="user1@example.com"),
             name="Web Developer",
-            description="Developing and maintaining the front-end of the web application. Working closely with the UI/UX designer to implement designs and ensure a smooth user experience. Ensuring the technical feasibility of UI/UX designs. Optimizing application for maximum speed and scalability. Collaborating with other team members and stakeholders."
+            description="Developing and maintaining the front-end of the web application. Working closely with the UI/UX designer to implement designs and ensure a smooth user experience. Ensuring the technical feasibility of UI/UX designs. Optimizing application for maximum speed and scalability. Collaborating with other team members and stakeholders.",
         )
         project1_uxui = ProjectRole.objects.create(
             project=project1,
             user=User.objects.get(email="user2@example.com"),
             name="UI/UX Designer",
-            description="Designing and implementing the user interface of the web application. Working closely with the web developer to implement designs and ensure a smooth user experience. Conducting user research and testing to inform design decisions. Creating wireframes, prototypes, and mockups to effectively communicate interaction and design ideas. Collaborating with other team members and stakeholders."
+            description="Designing and implementing the user interface of the web application. Working closely with the web developer to implement designs and ensure a smooth user experience. Conducting user research and testing to inform design decisions. Creating wireframes, prototypes, and mockups to effectively communicate interaction and design ideas. Collaborating with other team members and stakeholders.",
         )
         project1_marketing = ProjectRole.objects.create(
             project=project1,
             user=User.objects.get(email="user3@example.com"),
             name="Marketing Specialist",
-            description="Developing and implementing marketing strategies to promote the web application. Conducting market research to identify opportunities for growth. Creating and managing content for the web application. Managing social media accounts and creating social media campaigns. Collaborating with other team members and stakeholders."
+            description="Developing and implementing marketing strategies to promote the web application. Conducting market research to identify opportunities for growth. Creating and managing content for the web application. Managing social media accounts and creating social media campaigns. Collaborating with other team members and stakeholders.",
         )
         ProjectRoleReview.objects.create(
             role=project1_pm,
@@ -272,17 +265,17 @@ class Command(BaseCommand):
             project=project2,
             user=User.objects.get(email="admin@example.com"),
             name="Project Manager",
-            description="Directing project development from initiation to closure. Establishing project objectives, schedules, and resource allocation. Leading cross-functional teams, promoting clear communication, and mitigating risks. Monitoring progress and adjusting plans to meet deadlines and maintain quality. Analyzing project outcomes for continuous improvement."
+            description="Directing project development from initiation to closure. Establishing project objectives, schedules, and resource allocation. Leading cross-functional teams, promoting clear communication, and mitigating risks. Monitoring progress and adjusting plans to meet deadlines and maintain quality. Analyzing project outcomes for continuous improvement.",
         )
         project2_webdev = ProjectRole.objects.create(
             project=project2,
             user=None,
             name="Web Developer",
-            description="Designing and developing web applications using modern technologies. Collaborating with designers to create user-friendly interfaces. Ensuring optimal performance and responsiveness. Adapting to project requirements and implementing updates. Staying current with industry trends for continuous growth."
+            description="Designing and developing web applications using modern technologies. Collaborating with designers to create user-friendly interfaces. Ensuring optimal performance and responsiveness. Adapting to project requirements and implementing updates. Staying current with industry trends for continuous growth.",
         )
         project2_uxui = ProjectRole.objects.create(
             project=project2,
             user=None,
             name="UI/UX Designer",
-            description="Creating intuitive and visually appealing designs for digital platforms. Collaborating with developers for seamless integration. Utilizing design tools to produce graphics and prototypes. Conducting user research and usability testing to inform design decisions. Keeping up with industry trends for continuous improvement."
+            description="Creating intuitive and visually appealing designs for digital platforms. Collaborating with developers for seamless integration. Utilizing design tools to produce graphics and prototypes. Conducting user research and usability testing to inform design decisions. Keeping up with industry trends for continuous improvement.",
         )
