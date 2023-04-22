@@ -24,8 +24,7 @@ urlpatterns = [
     ),
     path(
         "",
-        TemplateView.as_view(template_name="main/home.html"),
-        name="home",
+        include("main.urls")
     ),
 ]
 

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
     <meta charset="utf-8">
 
@@ -104,17 +104,6 @@
 
     {# Custom styles #}
     {% block custom_css %}{% endblock %}
-
-    {# Theme mode #}
-    <script>
-        let mode = window.localStorage.getItem('mode'),
-            root = document.getElementsByTagName('html')[0];
-        if (mode !== null && mode === 'dark') {
-            root.classList.add('dark-mode');
-        } else {
-            root.classList.remove('dark-mode');
-        }
-    </script>
 
     {# Page loading scripts #}
     <script>
