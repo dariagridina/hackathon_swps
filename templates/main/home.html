@@ -263,9 +263,12 @@
                                         <div class="d-flex align-items-center justify-content-between mb-3">
                                             <span class="badge fs-sm text-nav bg-info text-decoration-none">{{ project.category }}</span>
                                         </div>
-                                        <h3 class="h5 mb-0">
+                                        <h3 class="card-title">
                                             <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
                                         </h3>
+                                        <p class="card-text mt-4 fs-lg">
+                                            <a>{{ project.description }}</a>
+                                        </p>
                                     </div>
                                     <div class="card-footer py-4">
                                         <div class="d-flex me-3">
