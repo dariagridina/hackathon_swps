@@ -26,7 +26,8 @@
         </div>
         <a href="#"
            class="d-flex align-items-center fw-bold text-dark text-decoration-none mt-4">
-    {% for role in project.roles.all %}
+            {% for role in project.roles.all %}
+                {% if role.user %}
                     <div class="d-flex me-3">
                         <div class="d-flex align-items-center justify-content-center bg-light rounded-circle"
                              style="width: 52px; height: 52px;">
@@ -34,9 +35,10 @@
                                  class="rounded-circle" width="48" alt="Avatar">
                         </div>
                     </div>
+                {% endif %}
 
-{% endfor %}
-        <span class="fs-sm"><span class="text-primary fw-semibold"></span> Users in this project</span>
+            {% endfor %}
+            <span class="fs-sm"><span class="text-primary fw-semibold"></span> Users in this project</span>
         </a>
     </section>
 
@@ -126,7 +128,7 @@
                          style="width: 419.667px; margin-right: 8px;" role="group">
                         <article class="card border-0 shadow-sm h-100 mx-2">
                             <div class="position-relative">
-                                <a href="{{ project.get_absolute_url }}"
+                                <a href="#"
                                    class="position-absolute top-0 start-0 w-100 h-100"
                                    aria-label="Read more"></a>
                                 <a href="#"
@@ -152,13 +154,18 @@
                             <div class="card-footer py-4">
                                 <div class="d-flex me-3">
                                     {% for role in project.roles.all %}
+                                        {% if role.user %}
                                         <div class="d-flex align-items-center justify-content-center bg-light rounded-circle"
                                              style="width: 52px; height: 52px;">
                                             <img src="{{ role.user.profile.image.url }}"
                                                  class="rounded-circle" width="48"
                                                  alt="Avatar">
+
                                         </div>
+                                        {% endif %}
                                     {% endfor %}
+                                            <span class="fs-sm"><span class="text-primary fw-semibold"></span> Users in this project</span>
+
                                 </div>
                             </div>
                         </article>
