@@ -3,6 +3,98 @@
 
 
 {% block content %}
+  <section class="container pt-xl-3 pt-lg-4 pt-md-3 pb-lg-5 pb-md-4 pb-3">
+    <div class="tab-content mb-xl-3 py-4 bg-secondary rounded-3">
+      <div class="tab-pane fade active show" id="people" role="tabpanel">
+        <div class="row align-items-center pt-3 pt-sm-4 pt-md-0 px-3 px-sm-4 px-lg-0">
+          <div class="row mb-3 mt-3">
+            <form method="get">
+              <div class="row col-md-9 offset-1">
+                <div class="col-md-5 mb-4">
+                  <label class="form-label" for="name">Search</label>
+                  <div class="input-group">
+                    <input id="name" name="name" type="text" class="form-control pe-5 rounded" placeholder="Search by name..." value="{{ request.GET.name }}">
+                    <i class="bx bx-search position-absolute top-50 end-0 translate-middle-y me-3 zindex-5 fs-lg"></i>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                  <label class="form-label" for="skill">Skills</label>
+                  <select id="skill" name="skill" class="form-select">
+                    <option value="">All skills</option>
+                    {% for skill in skills %}
+                      <option value="{{ skill }}" {% if skill == request.GET.skill %}selected=""{% endif %}>{{ skill }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-3 mb-4">
+                  <label class="form-label" for="city">City</label>
+                  <select class="form-select" id="city" name="city">
+                    <option value="">All cities</option>
+                    {% for city in cities %}
+                      <option value="{{ city }}" {% if city == request.GET.city %}selected=""{% endif %}>{{ city }}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-feedback">Please provide a valid city.</div>
+                  <div class="valid-feedback">Looks good!</div>
+                </div>
+                <div class="col-md-1 mb-4 mt-4">
+                  <button class="btn btn-primary rounded-pill" type="submit">Search</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="tab-pane fade" id="projects" role="tabpanel">
+        <div class="row align-items-center pt-3 pt-sm-4 pt-md-0 px-3 px-sm-4 px-lg-0">
+          <div class="row mb-3 mt-3">
+            <div class="row col-md-9 offset-1">
+              <div class="col-md-5 mb-4">
+                <label class="form-label" for="validationCustom03">Search</label>
+                <div class="input-group">
+                  <input type="text" class="form-control pe-5 rounded" placeholder="Search with keywords or tags...">
+                  <i class="bx bx-search position-absolute top-50 end-0 translate-middle-y me-3 zindex-5 fs-lg"></i>
+                </div>
+                <div class="invalid-feedback">Please provide a valid keyword or tag.</div>
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+              <div class="col-md-3 mb-4">
+                <label class="form-label" for="validationCustom03">Category</label>
+                <select class="form-select">
+                  <option>All categories</option>
+                  <option value="processes-and-tools">Processes &amp; Tools</option>
+                  <option value="startups">Startups</option>
+                  <option value="digital">Digital</option>
+                  <option value="strategy">Strategy</option>
+                  <option value="business">Business</option>
+                </select>
+                <div class="invalid-feedback">Please choose a category.</div>
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+              <div class="col-md-3 mb-4">
+                <label class="form-label" for="validationCustom03">City</label>
+                <select class="form-select" id="validationCustom03" required="">
+                  <option value="">Choose city...</option>
+                  <option value="Dallas">Dallas</option>
+                  <option value="Houston">Houston</option>
+                  <option value="Los Angeles">Los Angeles</option>
+                  <option value="Miami">Miami</option>
+                  <option value="New York">New York</option>
+                </select>
+                <div class="invalid-feedback">Please provide a valid city.</div>
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+              <div class="col-md-1 mb-4 mt-4">
+                <button class="btn btn-primary rounded-pill" type="button">Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
       {% for user in user_list %}
