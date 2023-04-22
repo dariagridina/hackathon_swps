@@ -51,42 +51,42 @@
         </div>
         <section class="container">
             <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-md-4 gy-2 mt-5">
-                        {% for project in project_list %}
-                            <div class="col pb-3">
-                                <article class="card border-0 shadow-sm h-100">
-                                    <div class="position-relative">
-                                        <a href="#" class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Read later" data-bs-original-title="Read later">
-                                            <i class="bx bx-bookmark"></i>
-                                        </a>
-                                    </div>
-                                    <div class="card-body pb-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-3">
-                                            <span class="badge fs-sm text-nav bg-info text-decoration-none">{{ project.category }}</span>
-                                        </div>
-                                        <h3 class="card-title">
-                                            <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
-                                        </h3>
-                                        <p class="card-text mt-4 fs-lg">
-                                            <a>{{ project.description }}</a>
-                                        </p>
-                                    </div>
-                                    <div class="card-footer py-4">
-                                        <div class="d-flex me-3">
-                                            <div class="d-flex align-items-center fw-bold text-dark text-decoration-none">
-                                                {% for role in project.roles.all %}
-                                                    {% if role.user %}
-                                                        <div class="d-flex align-items-center justify-content-center bg-light rounded-circle{% if not forloop.first %} ms-n3{% endif %}" style="width: 52px; height: 52px;">
-                                                            <img src="{{ role.user.profile.image.url }}" class="rounded-circle" width="48" alt="{{ role.user.get_full_name }} Avatar">
-                                                        </div>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
+                {% for project in project_list %}
+                    <div class="col pb-3">
+                        <article class="card border-0 shadow-sm h-100">
+                            <div class="position-relative">
+                                <a href="#" class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Read later" data-bs-original-title="Read later">
+                                    <i class="bx bx-bookmark"></i>
+                                </a>
                             </div>
-                        {% endfor %}
+                            <div class="card-body pb-4">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <span class="badge fs-sm text-nav bg-info text-decoration-none">{{ project.category }}</span>
+                                </div>
+                                <h3 class="card-title">
+                                    <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
+                                </h3>
+                                <p class="card-text mt-4 fs-lg">
+                                    <a>{{ project.description }}</a>
+                                </p>
+                            </div>
+                            <div class="card-footer py-4">
+                                <div class="d-flex me-3">
+                                    <div class="d-flex align-items-center fw-bold text-dark text-decoration-none">
+                                        {% for role in project.roles.all %}
+                                            {% if role.user %}
+                                                <div class="d-flex align-items-center justify-content-center bg-light rounded-circle{% if not forloop.first %} ms-n3{% endif %}" style="width: 52px; height: 52px;">
+                                                    <img src="{{ role.user.profile.image.url }}" class="rounded-circle" width="48" alt="{{ role.user.get_full_name }} Avatar">
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
                     </div>
+                {% endfor %}
+            </div>
         </section>
-
+    </section>
 {% endblock %}
