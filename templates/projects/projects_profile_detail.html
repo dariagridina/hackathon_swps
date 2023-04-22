@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<div class="col-md-8">
+      <h1>{{ project.name }}</h1>
+        <a target="_blank" class="btn btn-dark">Napisz</a>
+</div>
+<div>
+    <h2>{{ project.location }}</h2>
+    <a target="_blank" class="btn btn-dark">Aplikuj</a>
+</div>
+<div>
+    <p class="lead">{{ project.description}}</p>
+</div>
+<div>
+<h2>Skills</h2>
+  <ul>
+    {% for skill in project.skills.all %}
+    <li>{{ skill.name }}</li>
+    {% endfor %}
+  </ul>
+</div>
+<div>
+    <h2>Similar projects</h2>
+    <div>
+        <h2>Project Name</h2>
+        <h3>Project label</h3>
+        <h3>Project description</h3>
+        <a target="_blank" class="btn btn-dark">Napisz</a>
+    </div>
+</div>
+
+
+<body>
+
+</body>
+</html>
