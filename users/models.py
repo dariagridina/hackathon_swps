@@ -40,6 +40,7 @@ class User(AbstractUser):
         return self.email
 
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     image = models.ImageField(blank=True)

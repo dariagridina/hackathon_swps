@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="{{ user.profile.image.url }}" alt="Profile Image" class="img-thumbnail">
+      </div>
+      <div class="col-md-8">
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        <p class="lead">{{ user.profile.bio }}</p>
+        <div class="mb-3">
+          {% if user.profile.linkedin_url %}
+            <a href="{{ user.profile.linkedin_url }}" target="_blank" class="btn btn-primary">LinkedIn</a>
+          {% endif %}
+          {% if user.profile.github_url %}
+            <a href="{{ user.profile.github_url }}" target="_blank" class="btn btn-dark">GitHub</a>
+          {% endif %}
+          <a href="CV.pdf" download class="btn btn-secondary">Download CV</a>
+        </div>
+        <button class="btn btn-success mb-3">Contact User</button>
+      </div>
+    </div>
+    <hr>
+    <h2>Skills</h2>
+    <ul>
+      {% for skill in user.skills.all %}
+        <li>{{ skill.name }}</li>
+      {% endfor %}
+    </ul>
+    <hr>
+    <h2>Projects History</h2>
+    {% if user.project_memberships.exists %}
+      <ul>
+        {% for project_membership in user.project_memberships.all %}
+          <li>{{ project_membership.project.name }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>User has not worked on any projects yet.</p>
+    {% endif %}
+  </div>
+  {% if user.reviews_received.all %}
+    <section class="container mb-5 pb-lg-5 pb-md-4 pb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text fs-sm">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-sm btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </section>
+  {% else %}
+    <p>User has not received any reviews yet.</p>
+  {% endif %}
+{% endblock %}
+
+
+{% block vendor_css %}
+  <link rel="stylesheet" media="screen" href="{% static "vendor/boxicons/css/boxicons.min.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/swiper/swiper-bundle.min.css" %}">
+{% endblock %}
+
+
+{% block vendor_js %}
+  <script src="{% static "vendor/bootstrap/bootstrap.bundle.min.js" %}"></script>
+  <script src="{% static "vendor/smoot-scroll/smooth-scroll.polyfills.min.js" %}"></script>
+  <script src="{% static "vendor/swiper/swiper-bundle.min.js" %}"></script>
+{% endblock %}

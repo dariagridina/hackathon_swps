@@ -35,10 +35,10 @@ class ProjectMember(models.Model):
 
 class ProjectMemberReview(models.Model):
     member = models.ForeignKey(
-        "users.User",
+        ProjectMember,
         on_delete=models.CASCADE,
-        related_name="reviews_received",
-        related_query_name="review_received",
+        related_name="reviews",
+        related_query_name="reviews",
     )
     reviewer = models.ForeignKey(
         "users.User",
@@ -52,6 +52,7 @@ class ProjectMemberReview(models.Model):
         related_name="reviews",
         related_query_name="review",
     )
+    headline = models.CharField(max_length=100)
     text = models.TextField()
     rating = models.IntegerField(
         validators=[MaxValueValidator(5), MinValueValidator(1)]

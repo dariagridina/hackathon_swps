@@ -20,6 +20,16 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
+### Collect static files
+```bash
+python manage.py collectstatic
+```
+
+### Create superuser
+```bash
+python manage.py createsuperuser
+```
+
 ### Run server
 ```bash
 python manage.py runserver
