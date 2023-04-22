@@ -43,6 +43,11 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse("user_detail", kwargs={"pk": self.pk})
 
+    def avg_rating(self):
+        return self.project_roles.aggregate(models.Avg("reviews__rating"))[
+            "reviews__rating__avg"
+        ]
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load rating_helpers %}
+
+
+{% block content %}
+  <section class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+      {% for user in user_list %}
+        <div class="col">
+          <div class="card h-100">
+            <a href="{{ user.get_absolute_url }}">
+              <img src="{{ user.profile.image.url }}" class="card-img-top" alt="{{ user.get_full_name }}">
+            </a>
+            <div class="card-body">
+              <a href="{{ user.get_absolute_url }}" class="text-decoration-none">
+                <h5 class="card-title">{{ user.get_full_name }}</h5>
+                {% if user.avg_rating %}
+                  <p class="h6 mb-3">
+                    {% for i in "12345" %}
+                      <i class="bx {{ user.avg_rating|rating_star_class:i|get_digit:1 }} text-warning"></i>
+                    {% endfor %}
+                    ({{ user.avg_rating|floatformat:1 }})
+                  </p>
+                {% endif %}
+              </a>
+              <p class="card-text">{{ user.profile.bio|truncatechars:200 }}</p>
+            </div>
+            <div class="card-footer" style="min-height: 90px">
+              {% for skill in user.skills.all|slice:"0:4" %}
+                <span class="badge bg-success">{{ skill.name }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

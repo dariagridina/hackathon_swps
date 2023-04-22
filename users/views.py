@@ -21,16 +21,6 @@ class LoginView(DjangoLoginView):
 class UserProfileDetailView(DetailView):
     model = User
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["avg_rating"] = self.object.project_roles.aggregate(
-            models.Avg("reviews__rating")
-        )["reviews__rating__avg"]
-        context["reviews_count"] = self.object.project_roles.aggregate(
-            models.Count("reviews")
-        )["reviews__count"]
-        return context
-
 
 class UserProfileListView(ListView):
     model = User
