@@ -1,5 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -41,6 +42,7 @@ class User(AbstractUser):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    image = models.ImageField(blank=True)
     bio = models.TextField(blank=True)
     location = models.CharField(max_length=30, blank=True)
     linkedin_url = models.URLField(blank=True)
@@ -51,7 +53,12 @@ class UserProfile(models.Model):
 
 
 class UserSkill(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="skills", related_query_name="skill")
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="skills",
+        related_query_name="skill",
+    )
     name = models.CharField(max_length=100)
 
     def __str__(self):

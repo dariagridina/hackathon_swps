@@ -1,5 +1,5 @@
 from django.contrib import admin
-from projects.models import Project, ProjectMember, ProjectTag
+from projects.models import Project, ProjectMember, ProjectTag, ProjectMemberReview
 
 
 class ProjectMemberInline(admin.TabularInline):
@@ -20,3 +20,4 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Project, ProjectAdmin)
+admin.site.register(ProjectMemberReview)
