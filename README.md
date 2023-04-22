@@ -25,9 +25,9 @@ python manage.py migrate
 python manage.py collectstatic
 ```
 
-### Create superuser
+### Load test data
 ```bash
-python manage.py createsuperuser
+python manage.py load_code_fixtures
 ```
 
 ### Run server

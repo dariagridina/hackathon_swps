@@ -46,7 +46,7 @@
                             <li class="nav-item"><a class="nav-link" href="{% url "login" %}">Sign in</a></li>
                         {% endif %}
                         {% if show_signup|default_if_none:True %}
-                            <li class="nav-item"><a class="nav-link" href="{% url "register" %}">Sign up</a></li>
+{#                            <li class="nav-item"><a class="nav-link" href="{% url "register" %}">Sign up</a></li>#}
                         {% endif %}
                     {% endif %}
                 </ul>
@@ -83,7 +83,7 @@
                     <li class="nav-item"><a class="nav-link" href="{% url "login" %}">Sign in</a></li>
                 {% endif %}
                 {% if show_signup|default_if_none:True %}
-                    <li class="nav-item"><a class="nav-link" href="{% url "register" %}">Sign up</a></li>
+{#                    <li class="nav-item"><a class="nav-link" href="{% url "register" %}">Sign up</a></li>#}
                 {% endif %}
             {% endif %}
         </ul>

@@ -28,7 +28,7 @@ class ProjectTag(models.Model):
 
 
 class ProjectRole(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="roles")
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
