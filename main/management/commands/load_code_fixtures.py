@@ -118,6 +118,7 @@ class Command(BaseCommand):
     ]
 
     def handle(self, *args, **options):
+        random.seed(42)
         self.load_fixtures()
 
     def load_fixtures(self):
@@ -186,7 +187,7 @@ class Command(BaseCommand):
 
         self.DEVELOPERS += [
             self.create_user(
-                first_name="John",
+                first_name="Jessica",
                 last_name="Smith",
                 bio="I'm a front-end developer with expertise in React.js. I love transforming creative ideas into functional and visually appealing web applications.",
                 location="Warsaw",
@@ -195,7 +196,7 @@ class Command(BaseCommand):
                 github=True,
             ),
             self.create_user(
-                first_name="Jessica",
+                first_name="John",
                 last_name="Williams",
                 bio="I am a full-stack developer with 5 years of experience in the IT industry. I build web applications using React.js and Django.",
                 location="London",
@@ -213,7 +214,7 @@ class Command(BaseCommand):
                 github=True,
             ),
             self.create_user(
-                first_name="James",
+                first_name="Olga",
                 last_name="Jones",
                 bio="I am a back-end developer with 5 years of experience in the IT industry. I built scalable web applications using Python and Django.",
                 location="London",
