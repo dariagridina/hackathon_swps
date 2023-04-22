@@ -9,12 +9,12 @@
       </div>
       <div class="col-md-6">
         <h1>{{ user.get_full_name }}</h1>
-        {% if avg_rating %}
+        {% if user.avg_rating %}
           <p class="h3 mb-3">
             {% for i in "12345" %}
-              <i class="bx {{ avg_rating|rating_star_class:i|get_digit:1 }} text-warning"></i>
+              <i class="bx {{ user.avg_rating|rating_star_class:i|get_digit:1 }} text-warning"></i>
             {% endfor %}
-            ({{ avg_rating|floatformat:1 }})
+            ({{ user.avg_rating|floatformat:1 }})
           </p>
         {% endif %}
         <p class="fs-lg"><i class='bx bx-map' ></i> {{ user.profile.location }}</p>

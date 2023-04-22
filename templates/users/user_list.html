@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load rating_helpers %}
 
 
 {% block content %}
@@ -13,6 +14,14 @@
             <div class="card-body">
               <a href="{{ user.get_absolute_url }}" class="text-decoration-none">
                 <h5 class="card-title">{{ user.get_full_name }}</h5>
+                {% if user.avg_rating %}
+                  <p class="h6 mb-3">
+                    {% for i in "12345" %}
+                      <i class="bx {{ user.avg_rating|rating_star_class:i|get_digit:1 }} text-warning"></i>
+                    {% endfor %}
+                    ({{ user.avg_rating|floatformat:1 }})
+                  </p>
+                {% endif %}
               </a>
               <p class="card-text">{{ user.profile.bio|truncatechars:200 }}</p>
             </div>
