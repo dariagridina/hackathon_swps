@@ -22,19 +22,19 @@
                                     <label class="form-label" for="category">Category</label>
                                     <select id="category" name="category" class="form-select">
                                         <option value="">All categories</option>
-                                        {% for category in project.category.all %}
+                                        {% for category in categories %}
                                             <option value="{{ category }}"
-                                                    {% if category == request.GET.project.category %}selected=""{% endif %}>{{ category }}</option>
+                                                    {% if category == request.GET.category %}selected=""{% endif %}>{{ category }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-md-3 mb-4">
                                     <label class="form-label" for="city">Location</label>
-                                    <select class="form-select" id="city" name="city">
+                                    <select class="form-select" id="city" name="location">
                                         <option value="">All locations</option>
-                                        {% for city in project.location %}
-                                            <option value="{{ city }}"
-                                                    {% if city == request.GET.city %}selected=""{% endif %}>{{ city }}</option>
+                                        {% for location in locations %}
+                                            <option value="{{ location }}"
+                                                    {% if location == request.GET.location %}selected=""{% endif %}>{{ location }}</option>
                                         {% endfor %}
                                     </select>
                                     <div class="invalid-feedback">Please provide a valid location.</div>
