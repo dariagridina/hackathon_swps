@@ -79,6 +79,8 @@ class UserProfileEditForm(forms.Form):
                                widget=forms.TextInput(attrs={'class': 'form-control'}))
     bio = forms.CharField(label="Bio", widget=forms.Textarea(attrs={'class': 'form-control'}))
     image = forms.ImageField(label="Avatar", required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control', 'data': 'initial'}))
+    github = forms.URLField(label="Github", required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
+    linkedin = forms.URLField(label="LinkedIn", required=False, widget=forms.URLInput(attrs={'class': 'form-control'}))
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("instance")
@@ -88,6 +90,8 @@ class UserProfileEditForm(forms.Form):
         self.fields["location"].initial = self.user.profile.location
         self.fields["bio"].initial = self.user.profile.bio
         self.fields["image"].initial = self.user.profile.image
+        self.fields["github"].initial = self.user.profile.github_url
+        self.fields["linkedin"].initial = self.user.profile.linkedin_url
 
     def save(self):
         self.user.first_name = self.cleaned_data["first_name"]
@@ -96,6 +100,8 @@ class UserProfileEditForm(forms.Form):
 
         self.user.profile.bio = self.cleaned_data["bio"]
         self.user.profile.location = self.cleaned_data["location"]
+        self.user.profile.github_url = self.cleaned_data["github"]
+        self.user.profile.linkedin_url = self.cleaned_data["linkedin"]
         if self.cleaned_data["image"]:
             self.user.profile.image = self.cleaned_data["image"]
         else:
