@@ -28,14 +28,27 @@ class ProjectListView(ListView):
         qs = Project.objects.filter(name__isnull=False)
         category = self.request.GET.get("category")
         if category:
-            print("category: ", category)
-            qs = qs.filter(project__category=category)
+            qs = qs.filter(category=category)
         location = self.request.GET.get("location")
         if location:
-            print("location: ", location)
-            qs = qs.filter(project__location=location)
+            qs = qs.filter(location=location)
         name = self.request.GET.get("name")
         if name:
-            print("name: ", name)
             qs = qs.filter(Q(name__icontains=name))
         return qs.distinct()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = list(
+            Project.objects.all()
+            .values_list("category", flat=True)
+            .order_by("category")
+            .distinct()
+        )
+        context["locations"] = list(
+            Project.objects.all()
+            .values_list("location", flat=True)
+            .order_by("location")
+            .distinct()
+        )
+        return context
