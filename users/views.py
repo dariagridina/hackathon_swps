@@ -65,6 +65,17 @@ class UserProfileListView(ListView):
         context = super().get_context_data(**kwargs)
         qs = self.get_queryset()
         if qs.exists():
-            context['skills'] = list(UserSkill.objects.filter(user__in=qs).values_list('name', flat=True).order_by('name').distinct())
-            context['cities'] = list(User.objects.filter(id__in=qs).exclude(is_staff=True).values_list('profile__location', flat=True).order_by('profile__location').distinct())
+            context["skills"] = list(
+                UserSkill.objects.filter(user__in=qs)
+                .values_list("name", flat=True)
+                .order_by("name")
+                .distinct()
+            )
+            context["cities"] = list(
+                User.objects.filter(id__in=qs)
+                .exclude(is_staff=True)
+                .values_list("profile__location", flat=True)
+                .order_by("profile__location")
+                .distinct()
+            )
         return context

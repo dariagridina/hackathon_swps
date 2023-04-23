@@ -20,7 +20,6 @@ class Project(models.Model):
         return reverse("project_detail", kwargs={"pk": self.pk})
 
 
-
 class ProjectRole(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="roles")
     user = models.ForeignKey(

@@ -9,6 +9,6 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['projects'] = Project.objects.all()
-        context['user_list'] = User.objects.exclude(is_staff=True)
+        context["projects"] = Project.objects.all()
+        context["user_list"] = User.objects.exclude(is_staff=True)
         return context

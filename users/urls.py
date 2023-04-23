@@ -2,7 +2,12 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 from django.views.generic import TemplateView, RedirectView
 
-from users.views import UserProfileDetailView, UserProfileListView, LoginView, RegisterView
+from users.views import (
+    UserProfileDetailView,
+    UserProfileListView,
+    LoginView,
+    RegisterView,
+)
 
 urlpatterns = [
     path(
@@ -39,9 +44,7 @@ urlpatterns = [
     ),
     path(
         "register/complete/",
-        RedirectView.as_view(
-            pattern_name="home"
-        ),
+        RedirectView.as_view(pattern_name="home"),
         name="register_complete",
     ),
 ]

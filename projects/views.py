@@ -10,15 +10,20 @@ class ProjectDetailView(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["related_projects"] = Project.objects.filter(category=self.object.category).exclude(
-            id=self.object.id
-        ).order_by("?")[:3]
-        context['open_positions'] = ProjectRole.objects.filter(project=self.object, user__isnull=True)
+        context["related_projects"] = (
+            Project.objects.filter(category=self.object.category)
+            .exclude(id=self.object.id)
+            .order_by("?")[:3]
+        )
+        context["open_positions"] = ProjectRole.objects.filter(
+            project=self.object, user__isnull=True
+        )
         return context
 
 
 class ProjectListView(ListView):
     model = Project
+
     def get_queryset(self):
         qs = Project.objects.filter(name__isnull=False)
         category = self.request.GET.get("category")

@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('projects', '0017_alter_projectrole_project'),
+        ("projects", "0017_alter_projectrole_project"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='project',
-            name='category',
-            field=models.CharField(default='dupa', max_length=100),
+            model_name="project",
+            name="category",
+            field=models.CharField(default="dupa", max_length=100),
             preserve_default=False,
         ),
         migrations.DeleteModel(
-            name='ProjectTag',
+            name="ProjectTag",
         ),
     ]

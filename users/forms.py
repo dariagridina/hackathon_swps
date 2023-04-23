@@ -8,11 +8,15 @@ from users.models import User
 
 
 class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, required=True, help_text='Required. Enter a valid email address.')
+    email = forms.EmailField(
+        max_length=254,
+        required=True,
+        help_text="Required. Enter a valid email address.",
+    )
 
     class Meta:
         model = User
-        fields = ('email', 'password1', 'password2')
+        fields = ("email", "password1", "password2")
 
 
 class LoginForm(forms.Form):

@@ -22,10 +22,7 @@ urlpatterns = [
         TemplateView.as_view(template_name="main/faq.html"),
         name="faq",
     ),
-    path(
-        "",
-        include("main.urls")
-    ),
+    path("", include("main.urls")),
 ]
 
 if settings.DEBUG:

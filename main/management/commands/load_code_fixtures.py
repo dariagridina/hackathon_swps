@@ -297,7 +297,9 @@ class Command(BaseCommand):
             ),
         ]
 
-    def create_project(self, name, description, category, location, ended, owner, roles):
+    def create_project(
+        self, name, description, category, location, ended, owner, roles
+    ):
         project = Project.objects.create(
             name=name,
             description=description,
@@ -354,22 +356,22 @@ class Command(BaseCommand):
                 {
                     "name": "Front-end developer",
                     "user": self.DEVELOPERS[0],
-                    "description": "Developing the front-end of the application."
+                    "description": "Developing the front-end of the application.",
                 },
                 {
                     "name": "Full-stack developer",
                     "user": self.DEVELOPERS[1],
-                    "description": "Developing the front-end and back-end of the application."
+                    "description": "Developing the front-end and back-end of the application.",
                 },
                 {
                     "name": "Designer",
                     "user": self.DESIGNERS[0],
-                    "description": "Designing the user interface of the application."
+                    "description": "Designing the user interface of the application.",
                 },
                 {
                     "name": "Marketer",
                     "user": self.MARKETERS[0],
-                    "description": "Marketing the application."
+                    "description": "Marketing the application.",
                 },
             ],
         )
