@@ -1,14 +1,33 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.views import LoginView as DjangoLoginView
 from django.db import models
 from django.db.models import Q
-from django.views.generic import DetailView, ListView
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView, FormView
 
 from users.models import User, UserSkill
-from users.forms import LoginForm
+from users.forms import LoginForm, RegistrationForm
+
+
+class RegisterView(FormView):
+    form_class = RegistrationForm
+    template_name = "users/registration.html"
+    success_url = reverse_lazy("register_complete")
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("home")
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 
 class LoginView(DjangoLoginView):
     form_class = LoginForm
+    template_name = "users/login.html"
     redirect_authenticated_user = True
 
     def form_valid(self, form):

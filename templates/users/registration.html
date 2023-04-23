@@ -1,0 +1,64 @@
+{% extends "users/auth_base.html" %}
+{% load static %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block auth_form %}
+    <div class="container d-flex flex-wrap justify-content-center justify-content-xl-start h-100 pt-5">
+        <div class="w-100 align-self-center pt-1 pt-md-4 pb-4" style="max-width: 526px;">
+            <h1 class="text-center text-xl-start">Create Account</h1>
+            <p class="text-center text-xl-start pb-3 mb-3">Already have an account? <a href="{% url "login" %}">Sign in here.</a></p>
+            <form class="needs-validation" method="post" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="position-relative mb-4">
+                            <label for="email" class="form-label fs-base">Email</label>
+                            {% if form.email.errors %}
+                                <input type="email" id="email" name="email" class="form-control form-control-lg is-invalid" value="{{ form.email.value|default:"" }}" required>
+                                <div class="invalid-feedback position-absolute start-0 top-100">{{ form.email.errors.0 }}</div>
+                            {% else %}
+                                <input type="email" id="email" name="email" class="form-control form-control-lg" value="{{ form.email.value|default:"" }}" required>
+                                <div class="invalid-feedback position-absolute start-0 top-100">Email is required.</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <label for="password1" class="form-label fs-base">Password</label>
+                        <div class="password-toggle">
+                            <label class="password-toggle-btn" aria-label="Show/hide password">
+                                <input class="password-toggle-check" type="checkbox">
+                                <span class="password-toggle-indicator"></span>
+                            </label>
+                            {% if form.password1.errors %}
+                                <input type="password" id="password1" name="password1" class="form-control form-control-lg is-invalid" required>
+                                <div class="invalid-feedback position-absolute start-0 top-100">{{ form.password1.errors.0 }}</div>
+                            {% else %}
+                                <input type="password" id="password1" name="password1" class="form-control form-control-lg" required>
+                                <div class="invalid-feedback position-absolute start-0 top-100">Password is required.</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <label for="password2" class="form-label fs-base">Confirm password</label>
+                        <div class="password-toggle">
+                            <label class="password-toggle-btn" aria-label="Show/hide password">
+                                <input class="password-toggle-check" type="checkbox">
+                                <span class="password-toggle-indicator"></span>
+                            </label>
+                            {% if form.password2.errors %}
+                                <input type="password" id="password2" name="password2" class="form-control form-control-lg is-invalid" required>
+                                <div class="invalid-feedback position-absolute start-0 top-100">{{ form.password2.errors.0 }}</div>
+                            {% else %}
+                                <input type="password" id="password2" name="password2" class="form-control form-control-lg" required>
+                                <div class="invalid-feedback position-absolute start-0 top-100">Password is required.</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary shadow-primary btn-lg w-100">Sign up</button>
+            </form>
+            <p class="text-center pb-3 mt-5">Already have an account? <a href="{% url "login" %}">Sign in here.</a></p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{# Navbar #}
+{% block navbar %}
+    {% include "components/navbar.html" with navbar_tag="position-absolute" show_signin=False show_signup=False %}
+{% endblock %}
+
+{% block content %}
+    <section class="position-relative h-100">
+
+        {# Auth form #}
+        {% block auth_form %}
+        {% endblock %}
+
+        {# Background #}
+        <div class="position-absolute top-0 end-0 w-50 h-100 bg-position-center bg-repeat-0 bg-size-cover d-none d-xl-block" style="background-image: url({% static "images/signin-bg.jpg" %});"></div>
+    </section>
+{% endblock %}
+
+{# Remove footer #}
+{% block footer %}
+{% endblock %}
