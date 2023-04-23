@@ -77,7 +77,11 @@
                                         {% for role in project.roles.all %}
                                             {% if role.user %}
                                                 <div class="d-flex align-items-center justify-content-center bg-light rounded-circle{% if not forloop.first %} ms-n3{% endif %}" style="width: 52px; height: 52px;">
-                                                    <img src="{{ role.user.profile.image.url }}" class="rounded-circle" width="48" alt="{{ role.user.get_full_name }} Avatar">
+                                                    {% if role.user.profile.image %}
+                                                        <img src="{{ role.user.profile.image.url }}" class="rounded-circle" width="48" alt="{{ role.user.get_full_name }} Avatar">
+                                                    {% else %}
+                                                        <img src="https://ui-avatars.com/api/?name={{ user.get_full_name }}&size=300&background=191d27&color=ffffff" alt="Profile Image" class="rounded-circle">
+                                                    {% endif %}
                                                 </div>
                                             {% endif %}
                                         {% endfor %}

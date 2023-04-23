@@ -5,7 +5,11 @@
   <section class="container mb-5">
     <div class="row">
       <div class="col-md-3">
-        <img src="{{ user.profile.image.url }}" alt="Profile Image" class="img-thumbnail">
+        {% if user.profile.image %}
+            <img src="{{ user.profile.image.url }}" alt="Profile Image" class="img-thumbnail">
+        {% else %}
+            <img src="https://ui-avatars.com/api/?name={{ user.get_full_name }}&size=300&background=191d27&color=ffffff" alt="Profile Image" class="img-thumbnail">
+        {% endif %}
       </div>
       <div class="col-md-6">
         <h1>{{ user.get_full_name }}</h1>
@@ -36,7 +40,7 @@
             {% endif %}
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary w-100"><i class='bx bx-envelope bx-sm' style='color:#ffffff; margin-right: 5px'></i>Message</a>
+            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#message"><i class='bx bx-envelope bx-sm' style='color:#ffffff; margin-right: 5px'></i>Message</button>
           </div>
         </div>
       </div>
@@ -64,15 +68,16 @@
           </div>
           {% if role.reviews.all %}
             <div class="card-footer">
-                <span class="card-title bold">
-                  <strong>Reviews:</strong>
-                </span>
-              <p class="card-text">
+                <span class="card-title bold"><strong>Reviews:</strong></span>
                 {% for review in role.reviews.all %}
                   <figure class="card h-100 position-relative border-0 bg-transparent mb-0">
                     <figcaption class="card-footer border-0 d-flex align-items-start w-100 pb-2">
-                      <img src="{{ review.reviewer_role.user.profile.image.url }}" class="rounded-circle" alt="{{ review.reviewer_role.user.get_full_name }}" width="60">
-                      <div class="ps-3">
+                        {% if review.reviewer_role.user.profile.image %}
+                            <img src="{{ review.reviewer_role.user.profile.image.url }}" class="rounded-circle" width="48" alt="{{ role.user.get_full_name }} Avatar">
+                        {% else %}
+                            <img src="https://ui-avatars.com/api/?name={{ review.reviewer_role.user.get_full_name }}&size=300&background=191d27&color=ffffff" width="48" alt="Profile Image" class="rounded-circle">
+                        {% endif %}
+                        <div class="ps-3">
                         <h6 class="fw-semibold lh-base mb-0">
                           <a href="{{ review.reviewer_role.user.get_absolute_url }}" class="text-decoration-none">{{ review.reviewer_role.user.get_full_name }}</a>
                         </h6>
@@ -91,7 +96,6 @@
                     </figcaption>
                   </figure>
                 {% endfor %}
-              </p>
             </div>
           {% endif %}
         </div>

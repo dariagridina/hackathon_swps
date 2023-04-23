@@ -489,3 +489,30 @@ class Command(BaseCommand):
                 },
             ],
         )
+
+        self.create_project(
+            name="AI Chatbot",
+            description="This application is an AI chatbot that allows users to chat with the bot. ",
+            location="Berlin",
+            category="AI",
+            ended=False,
+            owner=self.PROJECT_MANAGERS[0],
+            roles=[
+                {
+                    "name": "Machine Learning Engineer",
+                    "user": self.DEVELOPERS[2],
+                    "description": "Developing the machine learning models for the application.",
+                },
+                {
+                    "name": "Full-stack developer",
+                    "user": None,
+                    "description": "Developing the front-end and back-end of the application.",
+                },
+                {
+                    "name": "Designer",
+                    "user": None,
+                    "description": "Designing the user interface of the application.",
+                },
+            ],
+        )
+

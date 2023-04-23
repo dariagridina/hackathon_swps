@@ -1,13 +1,11 @@
-from django.contrib.auth import authenticate
 from django.contrib.auth.views import LoginView as DjangoLoginView
-from django.db import models
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, FormView
 
+from users.forms import LoginForm, RegistrationForm, UserProfileEditForm
 from users.models import User, UserSkill
-from users.forms import LoginForm, RegistrationForm
 
 
 class RegisterView(FormView):
@@ -41,6 +39,22 @@ class LoginView(DjangoLoginView):
 class UserProfileDetailView(DetailView):
     model = User
 
+
+class UserProfileEditView(FormView):
+    form_class = UserProfileEditForm
+    template_name = "users/edit_profile.html"
+
+    def get_success_url(self):
+        return reverse_lazy("user_detail", kwargs={"pk": self.request.user.pk})
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["instance"] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 class UserProfileListView(ListView):
     model = User

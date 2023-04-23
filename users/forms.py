@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -66,3 +68,36 @@ class LoginForm(forms.Form):
             self.error_messages["invalid_credentials"],
             code="invalid_credentials",
         )
+
+
+class UserProfileEditForm(forms.Form):
+    first_name = forms.CharField(label="First name", max_length=255,
+                                 widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(label="Last name", max_length=255,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    location = forms.CharField(label="Location", max_length=255,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    bio = forms.CharField(label="Bio", widget=forms.Textarea(attrs={'class': 'form-control'}))
+    image = forms.ImageField(label="Avatar", required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control', 'data': 'initial'}))
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("instance")
+        super().__init__(*args, **kwargs)
+        self.fields["first_name"].initial = self.user.first_name
+        self.fields["last_name"].initial = self.user.last_name
+        self.fields["location"].initial = self.user.profile.location
+        self.fields["bio"].initial = self.user.profile.bio
+        self.fields["image"].initial = self.user.profile.image
+
+    def save(self):
+        self.user.first_name = self.cleaned_data["first_name"]
+        self.user.last_name = self.cleaned_data["last_name"]
+        self.user.save()
+
+        self.user.profile.bio = self.cleaned_data["bio"]
+        self.user.profile.location = self.cleaned_data["location"]
+        if self.cleaned_data["image"]:
+            self.user.profile.image = self.cleaned_data["image"]
+        else:
+            self.user.profile.image = None
+        self.user.profile.save()

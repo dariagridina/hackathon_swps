@@ -1,9 +1,10 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import RedirectView
 
 from users.views import (
     UserProfileDetailView,
+    UserProfileEditView,
     UserProfileListView,
     LoginView,
     RegisterView,
@@ -21,11 +22,9 @@ urlpatterns = [
         name="user_detail",
     ),
     path(
-        "settings/",
-        TemplateView.as_view(
-            template_name="users/user_settings.html"
-        ),  # TODO: Create this view
-        name="settings",
+        "profile/edit/",
+        UserProfileEditView.as_view(),
+        name="edit_profile",
     ),
     path(
         "login/",

@@ -3,379 +3,386 @@
 {% load static rating_helpers %}
 
 {% block navbar %}
-    {% include "components/navbar.html" with navbar_tag="position-absolute" %}
+  {% include "components/navbar.html" with navbar_tag="position-absolute" %}
 {% endblock %}
 
 {% block content %}
-    <section class="position-relative d-flex align-items-center min-vh-100 py-5 bg-dark overflow-hidden">
-        <span class="position-absolute top-0 start-0 d-dark-mode-block d-none w-100 h-100 bg-secondary opacity-75"></span>
-        <div class="container position-relative dark-mode mt-5 mb-lg-5 mb-md-4 mb-3 pt-3 pb-xl-3">
-            <div class="row gy-5">
-                <div class="col-xl-5 col-lg-6">
-                    <div class="text-lg-start text-end align-middle">
-                        <h1 class="display-2 custom-text-size">Find your <span class="text-primary">ideal</span> team</h1>
-                    </div>
-                </div>
-                <div class="col-lg-6 offset-xl-1">
-                    <div class="position-relative ms-xl-0 ms-lg-4">
-                        <div class="position-absolute top-50 start-50 translate-middle ratio ratio-1x1" style="width: 125%; max-width: 49.75rem;">
-                            <div class="p-md-0 p-5">
-                                <img src="{% static "images/hero-bg.png" %}" alt="Shape" class="hero-animation-spin p-md-0 p-5">
-                            </div>
-                        </div>
-                        <div class="position-relative row row-cols-sm-2 row-cols-1 gx-xl-4 gx-lg-3 gx-md-4 gx-3">
-                            <div class="col">
-                                <div class="d-sm-grid d-flex gap-xl-4 gap-lg-3 gap-md-4 gap-sm-3 gap-2">
-                                    <div class="d-flex align-items-center justify-content-center bg-secondary rounded-3" style="min-height: 176px; backdrop-filter: blur(6px);">
-                                        <div class="p-xl-4 p-sm-3 p-2 fs-xl fw-semibold text-center">
-                                            <span class="hero-animation-fade text-white">I need AI engineers</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-center bg-secondary rounded-3" style="min-height: 176px; backdrop-filter: blur(6px);">
-                                        <div class="p-xl-4 p-sm-3 p-2 fs-xl fw-semibold text-center">
-                                            <span class="hero-animation-fade hero-animation-delay-2 text-white">We are looking for Shopify Experts</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col mt-sm-5 mt-2 pt-sm-5">
-                                <div class="d-sm-grid d-flex gap-xl-4 gap-lg-3 gap-md-4 gap-sm-3 gap-2">
-                                    <div class="d-flex align-items-center justify-content-center bg-secondary rounded-3" style="min-height: 176px; backdrop-filter: blur(6px);">
-                                        <div class="p-xl-4 p-sm-3 p-2 fs-xl fw-semibold text-center">
-                                            <span class="hero-animation-fade hero-animation-delay-1 text-white">I need MVP for startup</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-center bg-secondary rounded-3" style="min-height: 176px; backdrop-filter: blur(6px);">
-                                        <div class="p-xl-4 p-sm-3 p-2 fs-xl fw-semibold text-center">
-                                            <span class="hero-animation-fade hero-animation-delay-3 text-white">I need web development</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <section class="position-relative d-flex align-items-center min-vh-100 py-5 bg-dark overflow-hidden">
+    <span class="position-absolute top-0 start-0 d-dark-mode-block d-none w-100 h-100 bg-secondary opacity-75"></span>
+    <div class="container position-relative dark-mode mt-5 mb-lg-5 mb-md-4 mb-3 pt-3 pb-xl-3">
+      <div class="row gy-5">
+        <div class="col-xl-5 col-lg-6">
+          <div class="text-lg-start text-end align-middle">
+            <h1 class="display-2 custom-text-size">Find your <span class="text-primary">ideal</span> team</h1>
+          </div>
         </div>
-    </section>
-
-    <section class="container mt-4 pt-lg-2">
-        <ul class="nav nav-tabs flex-nowrap justify-content-center overflow-auto mb-lg-4 pb-2 text-nowrap mt-4" role="tablist" style="border:none;">
-            <li class="nav-item" role="presentation" style="margin-right: -1px;">
-                <a href="#people" class="nav-link active rounded-start py-3" data-bs-toggle="tab" role="tab" aria-selected="true" tabindex="-1" style="border:none; border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-left: 180px; padding-right: 180px;">
-                    People
-                </a>
-            </li>
-            <li class="nav-item" role="presentation" style="margin-left: -1px;">
-                <a href="#projects" class="nav-link rounded-end py-3" data-bs-toggle="tab" role="tab" aria-selected="false" style="border:none; border-radius: 0 0.25rem 0.25rem 0; padding-left: 180px; padding-right: 180px;">
-                    Projects
-                </a>
-            </li>
-        </ul>
-
-        <section class="container pt-xl-3 pt-lg-4 pt-md-3 pb-lg-5 pb-md-3">
-            <!-- Tabs content -->
-            <div class="tab-content mb-xl-3 py-4 bg-secondary rounded-3 p-5">
-
-                <!-- People -->
-                <div class="tab-pane fade active show" id="people" role="tabpanel">
-                    <div class="row align-items-center mb-4">
-                        <div class="col-md-4">
-                            <label class="form-label" for="validationCustom03">Search</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control pe-5 rounded" placeholder="Search by name...">
-                            </div>
-                            <div class="invalid-feedback">Please provide a valid keyword or tag.</div>
-                            <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label" for="validationCustom03">Skills</label>
-                            <select class="form-select">
-                                <option>All skills</option>
-                                <option value="processes-and-tools">Processes &amp; Tools</option>
-                                <option value="startups">Startups</option>
-                                <option value="digital">Digital</option>
-                                <option value="strategy">Strategy</option>
-                                <option value="business">Business</option>
-                            </select>
-                            <div class="invalid-feedback">Please choose a skill.</div>
-                            <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label" for="validationCustom03">City</label>
-                            <select class="form-select" id="validationCustom03" required="">
-                                <option value="">Choose city...</option>
-                                <option value="Dallas">Dallas</option>
-                                <option value="Houston">Houston</option>
-                                <option value="Los Angeles">Los Angeles</option>
-                                <option value="Miami">Miami</option>
-                                <option value="New York">New York</option>
-                            </select>
-                            <div class="invalid-feedback">Please provide a valid city.</div>
-                            <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <div class="col-md-2 mt-4">
-                            <button class="btn btn-primary rounded-pill" type="button"><i class='bx bx-search-alt-2 bx-xs' style="margin-right: 5px"></i>Search</button>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h1 class="mb-4 mt-5">People</h1>
-                        <div class="d-flex align-items-center ms-sm-4 ms-3">
-                            <a href="#" class="nav-link me-2 p-0 active">
-                                <i class="bx bx-list-ul fs-4"></i>
-                            </a>
-                            <a href="#" class="nav-link p-0">
-                                <i class="bx bx-grid-alt fs-4"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4">
-                        {% for user in user_list %}
-                            <div class="col">
-                                <div class="card h-100">
-                                    <a href="{{ user.get_absolute_url }}">
-                                        <img src="{{ user.profile.image.url }}" class="card-img-top" alt="{{ user.get_full_name }}">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="{{ user.get_absolute_url }}" class="text-decoration-none">
-                                            <h5 class="card-title">{{ user.get_full_name }}</h5>
-                                            {% if user.avg_rating %}
-                                                <p class="h6 mb-3">
-                                                    {% for i in "12345" %}
-                                                        <i class="bx {{ user.avg_rating|rating_star_class:i|get_digit:1 }} text-warning"></i>
-                                                    {% endfor %}
-                                                    ({{ user.avg_rating|floatformat:1 }})
-                                                </p>
-                                            {% endif %}
-                                        </a>
-                                        <p class="card-text">{{ user.profile.bio|truncatechars:200 }}</p>
-                                    </div>
-                                    <div class="card-footer" style="min-height: 90px">
-                                        {% for skill in user.skills.all|slice:"0:4" %}
-                                            <span class="badge bg-info">{{ skill.name }}</span>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center pt-md-4 pt-2">
-                            <li class="page-item">
-                                <a href="#" class="page-link">
-                                    <i class="bx bx-chevron-left mx-n1"></i>
-                                </a>
-                            </li>
-                            <li class="page-item disabled d-sm-none">
-                                <span class="page-link text-body">2 / 4</span>
-                            </li>
-                            <li class="page-item d-none d-sm-block">
-                                <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item active d-none d-sm-block" aria-current="page">
-              <span class="page-link">
-                2
-                <span class="visually-hidden">(current)</span>
-              </span>
-                            </li>
-                            <li class="page-item d-none d-sm-block">
-                                <a href="#" class="page-link">3</a>
-                            </li>
-                            <li class="page-item d-none d-sm-block">
-                                <a href="#" class="page-link">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">
-                                    <i class="bx bx-chevron-right mx-n1"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-
-                <!-- Projects -->
-                <div class="tab-pane fade" id="projects" role="tabpanel">
-                    <div class="row align-items-center mb-4">
-                        <div class="col-md-4">
-                            <label class="form-label" for="validationCustom03">Search</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control pe-5 rounded" placeholder="Search with keywords or tags...">
-                            </div>
-                            <div class="invalid-feedback">Please provide a valid keyword or tag.</div>
-                            <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label" for="validationCustom03">Category</label>
-                            <select class="form-select">
-                                <option>All categories</option>
-                                <option value="processes-and-tools">Processes &amp; Tools</option>
-                                <option value="startups">Startups</option>
-                                <option value="digital">Digital</option>
-                                <option value="strategy">Strategy</option>
-                                <option value="business">Business</option>
-                            </select>
-                            <div class="invalid-feedback">Please choose a category.</div>
-                            <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label" for="validationCustom03">City</label>
-                            <select class="form-select" id="validationCustom03" required="">
-                                <option value="">Choose city...</option>
-                                <option value="Dallas">Dallas</option>
-                                <option value="Houston">Houston</option>
-                                <option value="Los Angeles">Los Angeles</option>
-                                <option value="Miami">Miami</option>
-                                <option value="New York">New York</option>
-                            </select>
-                            <div class="invalid-feedback">Please provide a valid city.</div>
-                            <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <div class="col-md-2 mt-4">
-                            <button class="btn btn-primary rounded-pill" type="button"><i class='bx bx-search-alt-2 bx-xs' style="margin-right: 5px"></i>Search</button>
-                        </div>
-                    </div>
-
-                    <!-- Page title + Projects list-->
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h1 class="mb-4 mt-5">Projects</h1>
-                        <div class="d-flex align-items-center ms-sm-4 ms-3">
-                            <a href="#" class="nav-link me-2 p-0 active">
-                                <i class="bx bx-list-ul fs-4"></i>
-                            </a>
-                            <a href="#" class="nav-link p-0">
-                                <i class="bx bx-grid-alt fs-4"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Blog grid -->
-                    <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-md-4 gy-2">
-                        {% for project in projects %}
-                            <div class="col pb-3">
-                                <article class="card border-0 shadow-sm h-100">
-                                    <div class="position-relative">
-                                        <a href="#" class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Read later" data-bs-original-title="Read later">
-                                            <i class="bx bx-bookmark"></i>
-                                        </a>
-                                    </div>
-                                    <div class="card-body pb-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-3">
-                                            <span class="badge fs-sm text-nav bg-info text-decoration-none">{{ project.category }}</span>
-                                        </div>
-                                        <h3 class="card-title">
-                                            <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
-                                        </h3>
-                                        <p class="card-text mt-4 fs-lg">
-                                            <a>{{ project.description }}</a>
-                                        </p>
-                                    </div>
-                                    <span class="card-body pb-2 mb-10"><hr class="mt-3 my-4 me-3 ml-5 mb-4"><span class="text-primary fw-semibold pb-5 mb-10">Users in this project</span>
-                                        <div class="d-flex me-3">
-                                            <div class="d-flex align-items-center fw-bold text-dark text-decoration-none">
-                                                {% for role in project.roles.all %}
-                                                    {% if role.user %}
-                                                        <div class="mt-2 d-flex align-items-center justify-content-center bg-light rounded-circle{% if not forloop.first %} ms-n3{% endif %}" style="width: 52px; height: 52px;">
-                                                            <img src="{{ role.user.profile.image.url }}" class="rounded-circle" width="48" alt="{{ role.user.get_full_name }} Avatar">
-                                                        </div>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                    </span>
-                                </article>
-                            </div>
-                        {% endfor %}
-                    </div>
-
-                    <!-- Pagination -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center pt-md-4 pt-2">
-                            <li class="page-item">
-                                <a href="#" class="page-link">
-                                    <i class="bx bx-chevron-left mx-n1"></i>
-                                </a>
-                            </li>
-                            <li class="page-item disabled d-sm-none">
-                                <span class="page-link text-body">2 / 4</span>
-                            </li>
-                            <li class="page-item d-none d-sm-block">
-                                <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item active d-none d-sm-block" aria-current="page">
-              <span class="page-link">
-                2
-                <span class="visually-hidden">(current)</span>
-              </span>
-                            </li>
-                            <li class="page-item d-none d-sm-block">
-                                <a href="#" class="page-link">3</a>
-                            </li>
-                            <li class="page-item d-none d-sm-block">
-                                <a href="#" class="page-link">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">
-                                    <i class="bx bx-chevron-right mx-n1"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+        <div class="col-lg-6 offset-xl-1">
+          <div class="position-relative ms-xl-0 ms-lg-4">
+            <div class="position-absolute top-50 start-50 translate-middle ratio ratio-1x1" style="width: 125%; max-width: 49.75rem;">
+              <div class="p-md-0 p-5">
+                <img src="{% static "images/hero-bg.png" %}" alt="Shape" class="hero-animation-spin p-md-0 p-5">
+              </div>
             </div>
-        </section>
+            <div class="position-relative row row-cols-sm-2 row-cols-1 gx-xl-4 gx-lg-3 gx-md-4 gx-3">
+              <div class="col">
+                <div class="d-sm-grid d-flex gap-xl-4 gap-lg-3 gap-md-4 gap-sm-3 gap-2">
+                  <div class="d-flex align-items-center justify-content-center bg-secondary rounded-3" style="min-height: 176px; backdrop-filter: blur(6px);">
+                    <div class="p-xl-4 p-sm-3 p-2 fs-xl fw-semibold text-center">
+                      <span class="hero-animation-fade text-white">I need AI engineers</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center bg-secondary rounded-3" style="min-height: 176px; backdrop-filter: blur(6px);">
+                    <div class="p-xl-4 p-sm-3 p-2 fs-xl fw-semibold text-center">
+                      <span class="hero-animation-fade hero-animation-delay-2 text-white">We are looking for Shopify Experts</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col mt-sm-5 mt-2 pt-sm-5">
+                <div class="d-sm-grid d-flex gap-xl-4 gap-lg-3 gap-md-4 gap-sm-3 gap-2">
+                  <div class="d-flex align-items-center justify-content-center bg-secondary rounded-3" style="min-height: 176px; backdrop-filter: blur(6px);">
+                    <div class="p-xl-4 p-sm-3 p-2 fs-xl fw-semibold text-center">
+                      <span class="hero-animation-fade hero-animation-delay-1 text-white">I need MVP for startup</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center bg-secondary rounded-3" style="min-height: 176px; backdrop-filter: blur(6px);">
+                    <div class="p-xl-4 p-sm-3 p-2 fs-xl fw-semibold text-center">
+                      <span class="hero-animation-fade hero-animation-delay-3 text-white">I need web development</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container mt-4 pt-lg-2">
+    <ul class="nav nav-tabs flex-nowrap justify-content-center overflow-auto mb-lg-4 pb-2 text-nowrap mt-4" role="tablist" style="border:none;">
+      <li class="nav-item" role="presentation" style="margin-right: -1px;">
+        <a href="#people" class="nav-link active rounded-start py-3" data-bs-toggle="tab" role="tab" aria-selected="true" tabindex="-1" style="border:none; border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-left: 180px; padding-right: 180px;">
+          People
+        </a>
+      </li>
+      <li class="nav-item" role="presentation" style="margin-left: -1px;">
+        <a href="#projects" class="nav-link rounded-end py-3" data-bs-toggle="tab" role="tab" aria-selected="false" style="border:none; border-radius: 0 0.25rem 0.25rem 0; padding-left: 180px; padding-right: 180px;">
+          Projects
+        </a>
+      </li>
+    </ul>
+
+    <section class="container pt-xl-3 pt-lg-4 pt-md-3 pb-lg-5 pb-md-4 pb-3">
+      <!-- Tabs content -->
+      <div class="tab-content mb-xl-3 py-4 bg-secondary rounded-3 p-5">
+
+        <!-- People -->
+        <div class="tab-pane fade active show" id="people" role="tabpanel">
+          <div class="row align-items-center mb-4">
+            <div class="col-md-4">
+              <label class="form-label" for="validationCustom03">Search</label>
+              <div class="input-group">
+                <input type="text" class="form-control pe-5 rounded" placeholder="Search by name...">
+              </div>
+              <div class="invalid-feedback">Please provide a valid keyword or tag.</div>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="validationCustom03">Skills</label>
+              <select class="form-select">
+                <option>All skills</option>
+                <option value="processes-and-tools">Processes &amp; Tools</option>
+                <option value="startups">Startups</option>
+                <option value="digital">Digital</option>
+                <option value="strategy">Strategy</option>
+                <option value="business">Business</option>
+              </select>
+              <div class="invalid-feedback">Please choose a skill.</div>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="validationCustom03">City</label>
+              <select class="form-select" id="validationCustom03" required="">
+                <option value="">Choose city...</option>
+                <option value="Dallas">Dallas</option>
+                <option value="Houston">Houston</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="Miami">Miami</option>
+                <option value="New York">New York</option>
+              </select>
+              <div class="invalid-feedback">Please provide a valid city.</div>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-2 mt-4">
+              <button class="btn btn-primary rounded-pill" type="button"><i class='bx bx-search-alt-2 bx-xs' style="margin-right: 5px"></i>Search</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <h1 class="mb-4 mt-5">People</h1>
+            <div class="d-flex align-items-center ms-sm-4 ms-3">
+              <a href="#" class="nav-link me-2 p-0 active">
+                <i class="bx bx-list-ul fs-4"></i>
+              </a>
+              <a href="#" class="nav-link p-0">
+                <i class="bx bx-grid-alt fs-4"></i>
+              </a>
+            </div>
+          </div>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4">
+            {% for user in user_list %}
+              <div class="col">
+                <div class="card h-100">
+                  <a href="{{ user.get_absolute_url }}">
+                      {% if user.profile.image %}
+                        <img src="{{ user.profile.image.url }}" class="card-img-top" alt="{{ user.get_full_name }}">
+                        {% else %}
+                         <img src="https://ui-avatars.com/api/?name={{ user.get_full_name }}&size=300&background=191d27&color=ffffff" alt="Profile Image" class="card-img-top">
+                        {% endif %}
+                  </a>
+                  <div class="card-body">
+                    <a href="{{ user.get_absolute_url }}" class="text-decoration-none">
+                      <h5 class="card-title">{{ user.get_full_name }}</h5>
+                      {% if user.avg_rating %}
+                        <p class="h6 mb-3">
+                          {% for i in "12345" %}
+                            <i class="bx {{ user.avg_rating|rating_star_class:i|get_digit:1 }} text-warning"></i>
+                          {% endfor %}
+                          ({{ user.avg_rating|floatformat:1 }})
+                        </p>
+                      {% endif %}
+                    </a>
+                    <p class="card-text">{{ user.profile.bio|truncatechars:200 }}</p>
+                  </div>
+                  <div class="card-footer" style="min-height: 90px">
+                    {% for skill in user.skills.all|slice:"0:4" %}
+                      <span class="badge bg-info">{{ skill.name }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center pt-md-4 pt-2">
+              <li class="page-item">
+                <a href="#" class="page-link">
+                  <i class="bx bx-chevron-left mx-n1"></i>
+                </a>
+              </li>
+              <li class="page-item disabled d-sm-none">
+                <span class="page-link text-body">2 / 4</span>
+              </li>
+              <li class="page-item d-none d-sm-block">
+                <a href="#" class="page-link">1</a>
+              </li>
+              <li class="page-item active d-none d-sm-block" aria-current="page">
+              <span class="page-link">
+                2
+                <span class="visually-hidden">(current)</span>
+              </span>
+              </li>
+              <li class="page-item d-none d-sm-block">
+                <a href="#" class="page-link">3</a>
+              </li>
+              <li class="page-item d-none d-sm-block">
+                <a href="#" class="page-link">4</a>
+              </li>
+              <li class="page-item">
+                <a href="#" class="page-link">
+                  <i class="bx bx-chevron-right mx-n1"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Projects -->
+        <div class="tab-pane fade" id="projects" role="tabpanel">
+          <div class="row align-items-center mb-4">
+            <div class="col-md-4">
+              <label class="form-label" for="validationCustom03">Search</label>
+              <div class="input-group">
+                <input type="text" class="form-control pe-5 rounded" placeholder="Search with keywords or tags...">
+              </div>
+              <div class="invalid-feedback">Please provide a valid keyword or tag.</div>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="validationCustom03">Category</label>
+              <select class="form-select">
+                <option>All categories</option>
+                <option value="processes-and-tools">Processes &amp; Tools</option>
+                <option value="startups">Startups</option>
+                <option value="digital">Digital</option>
+                <option value="strategy">Strategy</option>
+                <option value="business">Business</option>
+              </select>
+              <div class="invalid-feedback">Please choose a category.</div>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="validationCustom03">City</label>
+              <select class="form-select" id="validationCustom03" required="">
+                <option value="">Choose city...</option>
+                <option value="Dallas">Dallas</option>
+                <option value="Houston">Houston</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="Miami">Miami</option>
+                <option value="New York">New York</option>
+              </select>
+              <div class="invalid-feedback">Please provide a valid city.</div>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-2 mt-4">
+              <button class="btn btn-primary rounded-pill" type="button"><i class='bx bx-search-alt-2 bx-xs' style="margin-right: 5px"></i>Search</button>
+            </div>
+          </div>
+
+          <!-- Page title + Projects list-->
+          <div class="d-flex align-items-center justify-content-between">
+            <h1 class="mb-4 mt-5">Projects</h1>
+            <div class="d-flex align-items-center ms-sm-4 ms-3">
+              <a href="#" class="nav-link me-2 p-0 active">
+                <i class="bx bx-list-ul fs-4"></i>
+              </a>
+              <a href="#" class="nav-link p-0">
+                <i class="bx bx-grid-alt fs-4"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Blog grid -->
+          <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-md-4 gy-2">
+            {% for project in projects %}
+              <div class="col pb-3">
+                <article class="card border-0 shadow-sm h-100">
+                  <div class="position-relative">
+                    <a href="#" class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Read later" data-bs-original-title="Read later">
+                      <i class="bx bx-bookmark"></i>
+                    </a>
+                  </div>
+                  <div class="card-body pb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                      <span class="badge fs-sm text-nav bg-info text-decoration-none">{{ project.category }}</span>
+                    </div>
+                    <h3 class="card-title">
+                      <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
+                    </h3>
+                    <p class="card-text mt-4 fs-lg">
+                      <a>{{ project.description }}</a>
+                    </p>
+                  </div>
+                  <div class="card-footer py-4">
+                    <div class="d-flex me-3">
+                      <div class="d-flex align-items-center fw-bold text-dark text-decoration-none">
+                        {% for role in project.roles.all %}
+                          {% if role.user %}
+                            <div class="d-flex align-items-center justify-content-center bg-light rounded-circle{% if not forloop.first %} ms-n3{% endif %}" style="width: 52px; height: 52px;">
+                              {% if role.user.profile.image %}
+                                <img src="{{ role.user.profile.image.url }}" class="rounded-circle" width="48" alt="{{ role.user.get_full_name }} Avatar">
+                              {% else %}
+                                <img src="https://ui-avatars.com/api/?name={{ user.get_full_name }}&size=300&background=191d27&color=ffffff" alt="Profile Image" class="rounded-circle">
+                              {% endif %}                                                        </div>
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            {% endfor %}
+          </div>
+
+          <!-- Pagination -->
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center pt-md-4 pt-2">
+              <li class="page-item">
+                <a href="#" class="page-link">
+                  <i class="bx bx-chevron-left mx-n1"></i>
+                </a>
+              </li>
+              <li class="page-item disabled d-sm-none">
+                <span class="page-link text-body">2 / 4</span>
+              </li>
+              <li class="page-item d-none d-sm-block">
+                <a href="#" class="page-link">1</a>
+              </li>
+              <li class="page-item active d-none d-sm-block" aria-current="page">
+              <span class="page-link">
+                2
+                <span class="visually-hidden">(current)</span>
+              </span>
+              </li>
+              <li class="page-item d-none d-sm-block">
+                <a href="#" class="page-link">3</a>
+              </li>
+              <li class="page-item d-none d-sm-block">
+                <a href="#" class="page-link">4</a>
+              </li>
+              <li class="page-item">
+                <a href="#" class="page-link">
+                  <i class="bx bx-chevron-right mx-n1"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </section>
+  </section>
 {% endblock %}
 
 {% block custom_css %}
-    <style>
-        /* Spin animation */
-        @-webkit-keyframes hero-spin {
-            100% {
-                -webkit-transform: rotate(360deg);
-                transform: rotate(360deg);
-            }
-        }
-        @keyframes hero-spin {
-            100% {
-                -webkit-transform: rotate(360deg);
-                transform: rotate(360deg);
-            }
-        }
-        .hero-animation-spin {
-            -webkit-animation: hero-spin 35s linear infinite;
-            animation: hero-spin 35s linear infinite;
-        }
+  <style>
+    /* Spin animation */
+    @-webkit-keyframes hero-spin {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes hero-spin {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+    .hero-animation-spin {
+      -webkit-animation: hero-spin 35s linear infinite;
+      animation: hero-spin 35s linear infinite;
+    }
 
-        /* Fade animation */
-        @-webkit-keyframes hero-fade {
-            0%, 100% { opacity: 0 }
-            50% { opacity: 1 }
-        }
-        @keyframes hero-fade {
-            0%, 100% { opacity: 0 }
-            50% { opacity: 1 }
-        }
-        .hero-animation-fade {
-            -webkit-animation: hero-fade 4s ease-in infinite;
-            animation: hero-fade 4s ease-in infinite;
-        }
-        .hero-animation-delay-1,
-        .hero-animation-delay-2,
-        .hero-animation-delay-3 {
-            opacity: 0;
-        }
-        .hero-animation-delay-1 { animation-delay: .75s; }
-        .hero-animation-delay-2 { animation-delay: 1.5s; }
-        .hero-animation-delay-3 { animation-delay: 2s; }
+    /* Fade animation */
+    @-webkit-keyframes hero-fade {
+      0%, 100% { opacity: 0 }
+      50% { opacity: 1 }
+    }
+    @keyframes hero-fade {
+      0%, 100% { opacity: 0 }
+      50% { opacity: 1 }
+    }
+    .hero-animation-fade {
+      -webkit-animation: hero-fade 4s ease-in infinite;
+      animation: hero-fade 4s ease-in infinite;
+    }
+    .hero-animation-delay-1,
+    .hero-animation-delay-2,
+    .hero-animation-delay-3 {
+      opacity: 0;
+    }
+    .hero-animation-delay-1 { animation-delay: .75s; }
+    .hero-animation-delay-2 { animation-delay: 1.5s; }
+    .hero-animation-delay-3 { animation-delay: 2s; }
 
-        .align-middle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-        }
-        .custom-text-size {
-            font-size: 5rem; /* Adjust this value to your desired size */
-        }
+    .align-middle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .custom-text-size {
+      font-size: 5rem; /* Adjust this value to your desired size */
+    }
 
-    </style>
+  </style>
 {% endblock %}
