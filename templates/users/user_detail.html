@@ -29,14 +29,14 @@
         <div class="card">
           <div class="card-body">
             {% if user.profile.linkedin_url %}
-              <a href="{{ user.profile.linkedin_url }}" target="_blank" class="btn btn-secondary btn-linkedin w-100 mb-2">LinkedIn</a>
+              <a href="{{ user.profile.linkedin_url }}" target="_blank" class="btn btn-secondary btn-linkedin w-100 mb-2"> <i class='bx bxl-linkedin-square bx-sm' style='color:#ffffff; margin-right: 5px'></i>LinkedIn</a>
             {% endif %}
             {% if user.profile.github_url %}
-              <a href="{{ user.profile.github_url }}" target="_blank" class="btn btn-secondary btn-github w-100 mb-2">GitHub</a>
+              <a href="{{ user.profile.github_url }}" target="_blank" class="btn btn-secondary btn-github w-100 mb-2"><i class='bx bxl-github bx-sm' style="margin-right: 5px"></i>GitHub</a>
             {% endif %}
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary w-100">Message</a>
+            <a href="#" class="btn btn-primary w-100"><i class='bx bx-envelope bx-sm' style='color:#ffffff; margin-right: 5px'></i>Message</a>
           </div>
         </div>
       </div>

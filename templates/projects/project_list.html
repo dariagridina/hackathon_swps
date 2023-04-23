@@ -10,11 +10,12 @@
                         <form method="get">
                             <div class="row col-md-9 offset-1">
                                 <div class="col-md-5 mb-4">
-                                    <label class="form-label" for="name">Search</label>
+                                    <label class="form-label" for="name">
+                                        Search
+                                    </label>
                                     <div class="input-group">
                                         <input id="name" name="name" type="text" class="form-control pe-5 rounded"
                                                placeholder="Search by name..." value="{{ request.GET.name }}">
-                                        <i class="bx bx-search position-absolute top-50 end-0 translate-middle-y me-3 zindex-5 fs-lg"></i>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-4">
@@ -40,7 +41,7 @@
                                     <div class="valid-feedback">Looks good!</div>
                                 </div>
                                 <div class="col-md-1 mb-4 mt-4">
-                                    <button class="btn btn-primary rounded-pill" type="submit">Search</button>
+                                    <button class="btn btn-primary rounded-pill" type="submit"><i class='bx bx-search-alt-2 bx-xs' style="margin-right: 5px"></i>Search</button>
                                 </div>
                             </div>
                         </form>

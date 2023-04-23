@@ -4,10 +4,9 @@
 {% block content %}
     <!-- Page title -->
     <section class="container mt-4 pt-lg-2 pb-3">
-        <h1 class="pb-3" style="max-width: 970px;">{{ project.name }}</h1>
+        <h1 class="pb-3 mt-4" style="max-width: 970px;">{{ project.name }}</h1>
         </div>
-        </div>
-        <div class="d-flex align-items-center mt-xl-5 pt-2 pt-md-4 pt-lg-5">
+        <div class="d-flex align-items-center  pt-2 pt-md-4 pt-lg-5">
             <div class="ps-1.5">
                 <img src="{{ project.responsible_user.profile.image.url }}"
                      class="rounded-circle" width="60" alt="Avatar">
@@ -15,8 +14,6 @@
                 <a href="#"
                    class="fw-semibold stretched-link">{{ project.responsible_user }}</a>
             </div>
-        </div>
-        </div>
         </div>
         <a href="#"
            class="d-flex align-items-center fw-bold text-dark text-decoration-none mt-4">
@@ -47,7 +44,7 @@
                             <div class="card-body ">
                                 <h4 class="mb-4">{{ project.location }}</h4>
                                 <a href="#"
-                                   class=" d-flex align-items-center btn btn-primary btn-lg shadow-primary">Apply</a>
+                                   class=" d-flex align-items-center btn btn-primary btn-lg shadow-primary"><i class='bx bx-paper-plane bx-sm' style="margin-right: 4px"></i>Apply</a>
                             </div>
                         </div>
                     </div>
