@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView
 
-from projects.models import Project
+from projects.models import Project, ProjectRole
 from django.db.models import Q
 
 
@@ -10,9 +10,10 @@ class ProjectDetailView(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["related_projects"] = Project.objects.exclude(
+        context["related_projects"] = Project.objects.filter(category=self.object.category).exclude(
             id=self.object.id
         ).order_by("?")[:3]
+        context['open_positions'] = ProjectRole.objects.filter(project=self.object, user__isnull=True)
         return context
 
 

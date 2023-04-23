@@ -3,47 +3,56 @@
 
 {% block content %}
     <!-- Page title -->
-    <section class="container mt-4 pt-lg-2 pb-3">
-        <h1 class="pb-3 mt-5 mb-5" style="max-width: 700px; font-size: xxx-large;">{{ project.name }}</h1>
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="d-flex align-items-center">
-                    <div class="ps-1.5">
-                        <img src="{{ project.responsible_user.profile.image.url }}"
-                             class="rounded-circle" width="60" alt="Avatar">
-                        <h6 class="mb-1">{{ project.responsible_user.get_full_name }}</h6>
-                        <a href="#"
-                           class="fw-semibold stretched-link">{{ project.responsible_user }}</a>
+    <div class="jarallax">
+        <section class="container mt-4 pt-lg-2 pb-3 zindex-5" data-speed="0.35">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex mt-5">
+                        <span class="badge bg-primary fs-sm me-2">Popular</span>
+                        <a href="#" class="badge bg-white text-nav fs-sm text-decoration-none">{{ project.category }}</a>
                     </div>
+                    <h1 class="pb-3 mt-4 mb-5" style="max-width: 700px; font-size: xxx-large;">{{ project.name }}</h1>
                 </div>
-                <a href="#"
-                   class="d-flex align-items-center fw-bold text-dark text-decoration-none mt-4 mb-5">
-                    {% for role in project.roles.all %}
-                        {% if role.user %}
-                            <div class="d-flex me-3">
-                                <div class="d-flex align-items-center justify-content-center bg-light rounded-circle"
-                                     style="width: 52px; height: 52px;">
-                                    <img src="{{ role.user.profile.image.url }}"
-                                         class="rounded-circle" width="48" alt="Avatar">
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-md-6">
+                    <div class="d-flex align-items-center">
+                        <div class="ps-1.5">
+                            <img src="{{ project.responsible_user.profile.image.url }}"
+                                 class="rounded-circle" width="60" alt="Avatar">
+                            <h6 class="mb-1">{{ project.responsible_user.get_full_name }}</h6>
+                            <a href="#"
+                               class="fw-semibold stretched-link">{{ project.responsible_user }}</a>
+                        </div>
+                    </div>
+                    <a href="#"
+                       class="d-flex align-items-center fw-bold text-dark text-decoration-none mt-4 mb-5">
+                        {% for role in project.roles.all %}
+                            {% if role.user %}
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-circle{% if not forloop.first %} ms-n3{% endif %}" style="width: 52px; height: 52px;">
+                                    <img src="{{ role.user.profile.image.url }}" class="rounded-circle" width="48" alt="{{ role.user.get_full_name }} Avatar">
                                 </div>
-                            </div>
-                        {% endif %}
+                            {% endif %}
 
-                    {% endfor %}
-                    <span class="fs-sm"><span class="text-primary fw-semibold"></span> Users in this project</span>
-                </a>
-            </div>
-            <div class="col-lg-4">
-                <div class="card shadow-sm p-sm-3">
-                    <div class="card-body ">
-                        <h4 class="mb-4">{{ project.location }}</h4>
-                        <a href="#"
-                           class=" d-flex align-items-center btn btn-primary btn-lg shadow-primary"><i class='bx bx-paper-plane bx-sm' style="margin-right: 4px"></i>Apply</a>
+                        {% endfor %}
+                        <span class="fs-sm"><span class="text-primary fw-semibold ms-2"></span> Users in this project</span>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card p-sm-3">
+                        <div class="card-body ">
+                            <h4 class="mb-4">{{ project.location }}</h4>
+                            <a href="#"
+                               class=" d-flex align-items-center btn btn-primary btn-lg shadow-primary"><i class='bx bx-paper-plane bx-sm' style="margin-right: 4px"></i>Apply</a>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
+        <div id="jarallax-container-0" class="jarallax-container" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; z-index: -100; clip-path: polygon(0px 0px, 100% 0px, 100% 100%, 0px 100%);">
+            <div class="jarallax-img w-100" style="background-image: url({% static "images/project-bg.jpg" %}); object-fit: cover; object-position: 50% 50%; max-width: none; position: fixed; top: 0px; left: 0px; width: 698.667px; height: 548.503px; overflow: hidden; pointer-events: none; transform-style: preserve-3d; backface-visibility: hidden; margin-top: 10.2484px; transform: translate3d(0px, 13.5516px, 0px);" data-jarallax-original-styles="background-image: url({% static "images/broject-bg.jpg" %});"></div>
         </div>
-    </section>
+    </div>
 
     <!-- Content -->
     <section class="container pt-2 mt-8 mt-md-4 mt-xl-5">
@@ -54,27 +63,26 @@
                     <div class="mb-4 pb-2">
                         <h2 class="h1 mb-4 mt-4" style="font-size: xx-large;">Project description</h2>
                         <p class="fs-lg mb-0">{{ project.description }}</p>
-                        <!-- Tags -->
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card card-body position-relative mt-3 mb-3">
-                    <div style="margin-top: 10px;"></div>
-                    <span class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-primary opacity-10 rounded-3"></span>
-                    <div class="position-relative zindex-2">
-                        <h3 class="h5">Open positions</h3>
-                        <ul class="list-unstyled mb-0">
-                            {% for role in project.roles.all %}
-                                {% if not role.user %}
+                {% if open_positions %}
+                    <div class="card card-body position-relative mt-3 mb-3">
+                        <div style="margin-top: 10px;"></div>
+                        <span class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-primary opacity-10 rounded-3"></span>
+                        <div class="position-relative zindex-2">
+                            <h3 class="h5">Open positions</h3>
+                            <ul class="list-unstyled mb-0">
+                                {% for role in open_positions %}
                                     <li class="border-bottom pb-3 mb-3">
                                         <a href="#">{{ role.name }}</a>
                                     </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -83,7 +91,7 @@
     <section class="container mb-5 pt-md-4">
         <div class="d-flex flex-sm-row flex-column align-items-center justify-content-between mb-4 pb-1 pb-md-3">
             <h2 class="h1 mb-sm-0 mt-5" style="font-size: xx-large;">Similar projects</h2>
-            <a href="project_list.html" class="btn btn-lg btn-outline-primary ms-4">
+            <a href="{% url "project_list" %}" class="btn btn-lg btn-outline-primary ms-4">
                 All projects
                 <i class="bx bx-right-arrow-alt ms-1 me-n1 lh-1 lead"></i>
             </a>
