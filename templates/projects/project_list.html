@@ -71,8 +71,8 @@
                                     <a>{{ project.description }}</a>
                                 </p>
                             </div>
-                            <div class="card-footer py-4">
-                                <div class="d-flex me-3">
+                            <span class="card-body pb-2 mb-8"><hr class="mt-6 my-4 me-3 ml-5"><span class="text-primary fw-semibold pb-5 mb-7">Users in this project</span>
+                                <div class="d-flex me-5 pb-3 mt-3">
                                     <div class="d-flex align-items-center fw-bold text-dark text-decoration-none">
                                         {% for role in project.roles.all %}
                                             {% if role.user %}
@@ -83,7 +83,7 @@
                                         {% endfor %}
                                     </div>
                                 </div>
-                            </div>
+                            </span>
                         </article>
                     </div>
                 {% endfor %}
