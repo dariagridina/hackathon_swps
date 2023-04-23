@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView as DjangoLoginView
 from django.db.models import Q
 from django.shortcuts import redirect
@@ -5,13 +6,13 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, FormView
 
 from users.forms import LoginForm, RegistrationForm, UserProfileEditForm
-from users.models import User, UserSkill
+from users.models import User, UserSkill, UserProfile
 
 
 class RegisterView(FormView):
     form_class = RegistrationForm
     template_name = "users/registration.html"
-    success_url = reverse_lazy("register_complete")
+    success_url = reverse_lazy("edit_profile")
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -19,7 +20,9 @@ class RegisterView(FormView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form.save()
+        user = form.save()
+        UserProfile.objects.create(user=user)
+        login(self.request, user)
         return super().form_valid(form)
 
 
@@ -55,6 +58,7 @@ class UserProfileEditView(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
 
 class UserProfileListView(ListView):
     model = User
