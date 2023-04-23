@@ -91,9 +91,18 @@
                             </ul>
                         </div>
                     </div>
-                {% endif %}
+            {% else %}
+            <div class="card card-body position-relative mt-3 mb-3">
+                        <div style="margin-top: 10px;"></div>
+                        <span class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-primary opacity-10 rounded-3"></span>
+                        <div class="position-relative zindex-2">
+                            <h3 class="h5">Open positions</h3>
+                            <h5 class ="text-primary fw-semibold ms-2">No open positions yet. In case of any questions, contact head of project.</h5>
+
             </div>
         </div>
+                            {% endif %}
+
     </section>
 
     <!-- Similar projects -->
